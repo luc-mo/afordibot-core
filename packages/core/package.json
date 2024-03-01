@@ -1,6 +1,6 @@
 {
 	"name": "@afordibot/core",
-	"version": "0.0.0-beta.7",
+	"version": "0.0.0-beta.8",
 	"private": false,
 	"description": "Core package for managing user interactions with the AfordiBot across different platforms.",
 	"author": "Luciano Morales",
@@ -8,9 +8,7 @@
 	"packageManager": "pnpm@8.6.6",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
-	"files": [
-		"dist"
-	],
+	"files": ["dist"],
 	"publishConfig": {
 		"access": "public",
 		"tag": "beta"
