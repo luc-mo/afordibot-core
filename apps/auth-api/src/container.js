@@ -4,8 +4,11 @@ import axios from 'axios'
 import * as mongodb from 'mongodb'
 
 import { IdGenerator, Cipher } from '@afordibot/core'
+
 import { AxiosHttpClient } from './infrastructure/services/axios-http-client'
 import { RestHelixClient } from './infrastructure/services/rest-helix-client'
+
+import { MongoDbHandler } from './infrastructure/persistence/mongo/db-handler'
 
 const container = createContainer({
 	injectionMode: InjectionMode.PROXY,
@@ -24,6 +27,9 @@ container.register({
 	// Infrastructure services
 	httpClient: asClass(AxiosHttpClient),
 	restHelixClient: asClass(RestHelixClient),
+
+	// Persistence
+	dbHandler: asClass(MongoDbHandler),
 })
 
 export { container }
