@@ -4,6 +4,7 @@ import axios from 'axios'
 import * as mongodb from 'mongodb'
 
 import { IdGenerator, Cipher } from '@afordibot/core'
+import { AxiosHttpClient } from './infrastructure/services/axios-http-client'
 
 const container = createContainer({
 	injectionMode: InjectionMode.PROXY,
@@ -18,6 +19,9 @@ container.register({
 	// Domain services
 	idGenerator: asClass(IdGenerator),
 	cipher: asClass(Cipher),
+
+	// Infrastructure services
+	httpClient: asClass(AxiosHttpClient),
 })
 
 export { container }
