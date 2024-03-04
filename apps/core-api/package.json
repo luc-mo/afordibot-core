@@ -1,0 +1,33 @@
+{
+	"name": "@afordibot/core-api",
+	"version": "0.0.0",
+	"author": "Luciano Morales",
+	"license": "GPL-3.0-or-later",
+	"packageManager": "pnpm@8.10.2",
+	"private": true,
+	"scripts": {
+		"start": "cross-env NODE_ENV=production node ./dist/index.js",
+		"dev": "cross-env NODE_ENV=development node ./dist/index.js",
+		"serve": "pnpm build && pnpm dev",
+		"build": "tsup",
+		"test": "cross-env NODE_ENV=test vitest --run",
+		"test:watch": "cross-env NODE_ENV=test vitest"
+	},
+	"dependencies": {
+		"@afordibot/core": "workspace:^0.0.0-beta.8",
+		"awilix": "9.0.0",
+		"axios": "1.6.2",
+		"cors": "2.8.5",
+		"cross-env": "7.0.3",
+		"dotenv": "16.3.1",
+		"express": "4.18.2",
+		"express-validator": "7.0.1",
+		"mongodb": "6.3.0",
+		"morgan": "1.10.0",
+		"uuid": "9.0.1"
+	},
+	"devDependencies": {
+		"@types/cors": "2.8.17",
+		"@types/express": "4.17.21"
+	}
+}
