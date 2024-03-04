@@ -13,6 +13,8 @@ import { MongoDbHandler } from './infrastructure/persistence/mongo/db-handler'
 import { AuthorizationRepository } from './infrastructure/persistence/mongo/authorization/repository'
 import { authorizationDocumentParser } from './infrastructure/persistence/mongo/authorization/document-parser'
 
+import { UpdateBotToken } from './application/update-bot-token'
+
 const container = createContainer({
 	injectionMode: InjectionMode.PROXY,
 })
@@ -36,6 +38,9 @@ container.register({
 	dbHandler: asClass(MongoDbHandler),
 	authorizationRepository: asClass(AuthorizationRepository),
 	authorizationDocumentParser: asFunction(authorizationDocumentParser),
+
+	// Use cases
+	updateBotToken: asClass(UpdateBotToken),
 })
 
 export { container }
