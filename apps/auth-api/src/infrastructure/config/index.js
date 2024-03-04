@@ -6,7 +6,7 @@ export const config = {
 	server: {
 		port: process.env.PORT ?? 3002,
 		domainUrl: process.env.DOMAIN_URL,
-		cypherKey: process.env.CYPHER_KEY,
+		cipherKey: process.env.CIPHER_KEY,
 	},
 	mongo: {
 		uri: process.env.MONGO_URI,
