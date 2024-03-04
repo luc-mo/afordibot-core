@@ -14,6 +14,7 @@ import { AuthorizationRepository } from './infrastructure/persistence/mongo/auth
 import { authorizationDocumentParser } from './infrastructure/persistence/mongo/authorization/document-parser'
 
 import { UpdateBotToken } from './application/update-bot-token'
+import { RefreshAccessToken } from './application/refresh-access-token'
 
 const container = createContainer({
 	injectionMode: InjectionMode.PROXY,
@@ -41,6 +42,7 @@ container.register({
 
 	// Use cases
 	updateBotToken: asClass(UpdateBotToken),
+	refreshAccessToken: asClass(RefreshAccessToken),
 })
 
 export { container }
