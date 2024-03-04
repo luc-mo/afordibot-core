@@ -3,9 +3,10 @@ import { URLBuilder } from '@/shared/url-builder'
 import { HttpError } from '@/domain/errors'
 
 export class RestHelixClient {
-	constructor({ config, httpClient }) {
+	constructor({ config, httpClient, restHelixRequestParser }) {
 		this._config = config
 		this._httpClient = httpClient
+		this._restHelixRequestParser = restHelixRequestParser
 	}
 
 	async getBotAccessToken(code) {
@@ -19,7 +20,8 @@ export class RestHelixClient {
 				.addSearchParam('redirect_uri', redirectUri)
 				.addSearchParam('grant_type', 'authorization_code')
 				.toString()
-			return await this._httpClient.post({ url })
+			const response = await this._httpClient.post({ url })
+			return this._restHelixRequestParser.accessTokenResponse(response)
 		} catch (error) {
 			if (error instanceof HttpError && error.status === 400) {
 				throw new InvalidAuthorizationError('Invalid authorization code')
@@ -39,7 +41,8 @@ export class RestHelixClient {
 				.addSearchParam('redirect_uri', redirectUri)
 				.addSearchParam('grant_type', 'authorization_code')
 				.toString()
-			return await this._httpClient.post({ url })
+			const response = await this._httpClient.post({ url })
+			return this._restHelixRequestParser.accessTokenResponse(response)
 		} catch (error) {
 			if (error instanceof HttpError && error.status === 400) {
 				throw new InvalidAuthorizationError('Invalid authorization code')
@@ -57,7 +60,8 @@ export class RestHelixClient {
 				.addSearchParam('client_secret', clientSecret)
 				.addSearchParam('grant_type', 'refresh_token')
 				.toString()
-			return await this._httpClient.post({ url })
+			const response = await this._httpClient.post({ url })
+			return this._restHelixRequestParser.accessTokenResponse(response)
 		} catch (error) {
 			if ((error instanceof HttpError && error.status === 400) || error.status === 401) {
 				throw new InvalidAuthorizationError('Invalid refresh token')
@@ -74,7 +78,7 @@ export class RestHelixClient {
 				Authorization: `Bearer ${accessToken}`,
 			}
 			const response = await this._httpClient.get({ url, options: { headers } })
-			return response.data[0]
+			return this._restHelixRequestParser.userDataResponse(response.data[0])
 		} catch (error) {
 			if (error instanceof HttpError && error.status === 401) {
 				throw new InvalidAuthorizationError('Invalid access token')
