@@ -37,7 +37,7 @@ container.register({
 	restHelixRequestParser: asFunction(restHelixRequestParser),
 
 	// Persistence
-	dbHandler: asClass(MongoDbHandler),
+	dbHandler: asClass(MongoDbHandler).singleton(),
 	authorizationRepository: asClass(AuthorizationRepository),
 	authorizationDocumentParser: asFunction(authorizationDocumentParser),
 
