@@ -7,6 +7,8 @@ import { IdGenerator, Cipher } from '@afordibot/core'
 import { config } from './infrastructure/config'
 
 import { MongoDbHandler } from './infrastructure/persistence/mongo/db-handler'
+import { UserRepository } from './infrastructure/persistence/mongo/user/repository'
+import { userDocumentParser } from './infrastructure/persistence/mongo/user/document-parser'
 
 const container = createContainer({
 	injectionMode: InjectionMode.PROXY,
@@ -27,6 +29,8 @@ container.register({
 
 	// Persistence
 	dbHandler: asClass(MongoDbHandler).singleton(),
+	userRepository: asClass(UserRepository),
+	userDocumentParser: asValue(userDocumentParser),
 })
 
 export { container }
