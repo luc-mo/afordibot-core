@@ -1,0 +1,25 @@
+{
+	"name": "@afordibot/twitch-bot",
+	"version": "0.0.0",
+	"description": "Afordibot is a Twitch bot that allows you to create and automate chat commands, providing you with a variety of additional functionalities to help you in your streams and entertain your viewers.",
+	"author": "Luciano Morales",
+	"license": "GPL-3.0-or-later",
+	"packageManager": "pnpm@8.10.2",
+	"private": true,
+	"scripts": {
+		"start": "cross-env NODE_ENV=production node ./dist/index.js",
+		"dev": "cross-env NODE_ENV=development node ./dist/index.js",
+		"serve": "pnpm build && pnpm dev",
+		"build": "tsup",
+		"test": "cross-env NODE_ENV=test vitest --run"
+	},
+	"dependencies": {
+		"@afordibot/core": "workspace:^0.0.0-beta.8",
+		"@twurple/auth": "7.0.10",
+		"@twurple/chat": "7.0.10",
+		"awilix": "9.0.0",
+		"cross-env": "7.0.3",
+		"dotenv": "16.3.1",
+		"mongodb": "6.3.0"
+	}
+}
