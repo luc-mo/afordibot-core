@@ -11,7 +11,10 @@ import { AuthProvider } from './infrastructure/irc/auth-provider'
 
 import { MongoDbHandler } from './infrastructure/persistence/mongo/db-handler'
 import { AuthorizationRepository } from './infrastructure/persistence/mongo/authorization/repository'
+import { UserRepository } from './infrastructure/persistence/mongo/user/repository'
+
 import { authorizationDocumentParser } from './infrastructure/persistence/mongo/authorization/document-parser'
+import { userDocumentParser } from './infrastructure/persistence/mongo/user/document-parser'
 
 const container = createContainer({
 	injectionMode: InjectionMode.PROXY,
@@ -37,7 +40,10 @@ container.register({
 	// Persistence
 	dbHandler: asClass(MongoDbHandler).singleton(),
 	authorizationRepository: asClass(AuthorizationRepository),
+	userRepository: asClass(UserRepository),
+
 	authorizationDocumentParser: asFunction(authorizationDocumentParser),
+	userDocumentParser: asFunction(userDocumentParser),
 })
 
 export { container }

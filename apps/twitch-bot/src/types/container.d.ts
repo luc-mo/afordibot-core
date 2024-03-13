@@ -10,7 +10,10 @@ import type { AuthProvider } from '@/infrastructure/irc/auth-provider'
 
 import type { MongoDbHandler } from '@/infrastructure/persistence/mongo/db-handler'
 import type { AuthorizationRepository } from '@/infrastructure/persistence/mongo/authorization/repository'
+import type { UserRepository } from '@/infrastructure/persistence/mongo/user/repository'
+
 import type { authorizationDocumentParser } from '@/infrastructure/persistence/mongo/authorization/document-parser'
+import type { userDocumentParser } from '@/infrastructure/persistence/mongo/user/document-parser'
 
 export interface Container {
 	// Libraries
@@ -32,5 +35,8 @@ export interface Container {
 	// Persistence
 	dbHandler: MongoDbHandler
 	authorizationRepository: AuthorizationRepository
+	userRepository: UserRepository
+
 	authorizationDocumentParser: typeof authorizationDocumentParser
+	userDocumentParser: typeof userDocumentParser
 }
