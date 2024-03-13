@@ -7,6 +7,8 @@ import { IdGenerator, Cipher } from '@afordibot/core'
 import { CommandPicker } from './domain/services/command-picker'
 import { CommandParser } from './domain/services/command-parser'
 
+import { AuthProvider } from './infrastructure/irc/auth-provider'
+
 import { MongoDbHandler } from './infrastructure/persistence/mongo/db-handler'
 import { AuthorizationRepository } from './infrastructure/persistence/mongo/authorization/repository'
 import { authorizationDocumentParser } from './infrastructure/persistence/mongo/authorization/document-parser'
@@ -28,6 +30,9 @@ container.register({
 	cipher: asClass(Cipher),
 	commandPicker: asClass(CommandPicker),
 	commandParser: asClass(CommandParser),
+
+	// IRC
+	authProvider: asClass(AuthProvider).singleton(),
 
 	// Persistence
 	dbHandler: asClass(MongoDbHandler).singleton(),
