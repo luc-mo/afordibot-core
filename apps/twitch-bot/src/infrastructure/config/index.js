@@ -11,9 +11,10 @@ export const config = {
 		dbName: process.env.MONGO_DB_NAME,
 		timeout: 5000,
 	},
-	helix: {
-		botId: process.env.HELIX_BOT_ID,
-		clientId: process.env.HELIX_CLIENT_ID,
-		clientSecret: process.env.HELIX_CLIENT_SECRET,
+	bot: {
+		botId: process.env.BOT_ID,
+		clientId: process.env.BOT_CLIENT_ID,
+		clientSecret: process.env.BOT_CLIENT_SECRET,
+		defaultChannels: process.env.BOT_CHANNELS.split(' '),
 	},
 }
