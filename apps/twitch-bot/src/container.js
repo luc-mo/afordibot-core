@@ -1,4 +1,4 @@
-import { createContainer, InjectionMode, asValue, asClass } from 'awilix'
+import { createContainer, InjectionMode, asValue, asClass, asFunction } from 'awilix'
 import * as mongodb from 'mongodb'
 import { config } from './infrastructure/config'
 
@@ -7,6 +7,8 @@ import { CommandPicker } from './domain/services/command-picker'
 import { CommandParser } from './domain/services/command-parser'
 
 import { MongoDbHandler } from './infrastructure/persistence/mongo/db-handler'
+import { AuthorizationRepository } from './infrastructure/persistence/mongo/authorization/repository'
+import { authorizationDocumentParser } from './infrastructure/persistence/mongo/authorization/document-parser'
 
 const container = createContainer({
 	injectionMode: InjectionMode.PROXY,
@@ -27,6 +29,8 @@ container.register({
 
 	// Persistence
 	dbHandler: asClass(MongoDbHandler).singleton(),
+	authorizationRepository: asClass(AuthorizationRepository),
+	authorizationDocumentParser: asFunction(authorizationDocumentParser),
 })
 
 export { container }
