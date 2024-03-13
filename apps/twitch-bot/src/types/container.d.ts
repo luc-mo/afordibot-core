@@ -15,6 +15,8 @@ import type { UserRepository } from '@/infrastructure/persistence/mongo/user/rep
 import type { authorizationDocumentParser } from '@/infrastructure/persistence/mongo/authorization/document-parser'
 import type { userDocumentParser } from '@/infrastructure/persistence/mongo/user/document-parser'
 
+import type { FindBotUsernames } from '@/application/find-bot-usernames'
+
 export interface Container {
 	// Libraries
 	crypto: typeof crypto
@@ -39,4 +41,7 @@ export interface Container {
 
 	authorizationDocumentParser: typeof authorizationDocumentParser
 	userDocumentParser: typeof userDocumentParser
+
+	// Use cases
+	findBotUsernames: FindBotUsernames
 }

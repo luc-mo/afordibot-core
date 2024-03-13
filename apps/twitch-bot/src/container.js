@@ -16,6 +16,8 @@ import { UserRepository } from './infrastructure/persistence/mongo/user/reposito
 import { authorizationDocumentParser } from './infrastructure/persistence/mongo/authorization/document-parser'
 import { userDocumentParser } from './infrastructure/persistence/mongo/user/document-parser'
 
+import { FindBotUsernames } from './application/find-bot-usernames'
+
 const container = createContainer({
 	injectionMode: InjectionMode.PROXY,
 })
@@ -44,6 +46,9 @@ container.register({
 
 	authorizationDocumentParser: asFunction(authorizationDocumentParser),
 	userDocumentParser: asFunction(userDocumentParser),
+
+	// Use cases
+	findBotUsernames: asClass(FindBotUsernames),
 })
 
 export { container }
