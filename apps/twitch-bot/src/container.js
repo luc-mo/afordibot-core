@@ -1,4 +1,5 @@
 import { createContainer, InjectionMode, asValue, asClass, asFunction } from 'awilix'
+import crypto from 'node:crypto'
 import * as mongodb from 'mongodb'
 import { config } from './infrastructure/config'
 
@@ -16,6 +17,7 @@ const container = createContainer({
 
 container.register({
 	// Libraries
+	crypto: asValue(crypto),
 	mongodb: asValue(mongodb),
 
 	// Config
