@@ -16,7 +16,7 @@ export const authorizationDocumentParser = ({ mongodb, cipher }) => {
 				refreshToken: decryptedRefreshToken,
 			})
 		},
-		toDocument: ({ _id, helixUserId, accessToken, refreshToken, expiresIn, scope }) => {
+		toDocument: ({ id, helixUserId, accessToken, refreshToken, expiresIn, scope }) => {
 			const _id = new mongodb.UUID(getValue(id))
 			const encryptedAccessToken = cipher.encrypt(accessToken)
 			const encryptedRefreshToken = cipher.encrypt(refreshToken)
