@@ -4,7 +4,7 @@ dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
 export const config = {
 	env: process.env.NODE_ENV,
 	server: {
-		cypherKey: process.env.CYPHER_KEY,
+		cipherKey: process.env.CIPHER_KEY,
 	},
 	mongo: {
 		uri: process.env.MONGO_URI,
