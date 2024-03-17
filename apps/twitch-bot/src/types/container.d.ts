@@ -16,6 +16,7 @@ import type { UserRepository } from '@/infrastructure/persistence/mongo/user/rep
 import type { authorizationDocumentParser } from '@/infrastructure/persistence/mongo/authorization/document-parser'
 import type { userDocumentParser } from '@/infrastructure/persistence/mongo/user/document-parser'
 
+import type { HealthCheck } from '@/application/health-check'
 import type { FindBotUsernames } from '@/application/find-bot-usernames'
 
 export interface Container {
@@ -45,5 +46,6 @@ export interface Container {
 	userDocumentParser: typeof userDocumentParser
 
 	// Use cases
+	healthCheck: HealthCheck
 	findBotUsernames: FindBotUsernames
 }

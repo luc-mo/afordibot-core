@@ -18,6 +18,7 @@ import { UserRepository } from './infrastructure/persistence/mongo/user/reposito
 import { authorizationDocumentParser } from './infrastructure/persistence/mongo/authorization/document-parser'
 import { userDocumentParser } from './infrastructure/persistence/mongo/user/document-parser'
 
+import { HealthCheck } from './application/health-check'
 import { FindBotUsernames } from './application/find-bot-usernames'
 
 const container = createContainer({
@@ -52,6 +53,7 @@ container.register({
 	userDocumentParser: asFunction(userDocumentParser),
 
 	// Use cases
+	healthCheck: asClass(HealthCheck),
 	findBotUsernames: asClass(FindBotUsernames),
 })
 

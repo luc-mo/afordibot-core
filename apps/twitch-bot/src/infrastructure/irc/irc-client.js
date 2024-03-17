@@ -1,16 +1,27 @@
 import * as R from 'ramda'
 import { ChatClient } from '@twurple/chat'
 
+import { HealthCheckCommand } from '@/application/health-check'
+
 export class IRCClient {
 	/**
 	 * @typedef { import('@/types/container').Container Container }
 	 * @param {Container} dependencies
 	 */
-	constructor({ config, authProvider, viewerPermissionsHandler, commandPicker, findBotUsernames }) {
+	constructor({
+		config,
+		authProvider,
+		viewerPermissionsHandler,
+		commandPicker,
+		healthCheck,
+		findBotUsernames,
+	}) {
 		this._config = config
 		this._authProvider = authProvider
 		this._viewerPermissionsHandler = viewerPermissionsHandler
 		this._commandPicker = commandPicker
+
+		this._healthCheck = healthCheck
 		this._findBotUsernames = findBotUsernames
 	}
 
@@ -42,10 +53,9 @@ export class IRCClient {
 		}
 	}
 
-	_onHealthCheck({ channel }) {
-		this._client.say(
-			channel,
-			'Testeando mi presencia en el chat... Funciono? afordiThinking... Si funciono! afordiHype'
-		)
+	_onHealthCheck({ channel, viewerPermissions }) {
+		const command = new HealthCheckCommand(viewerPermissions)
+		const response = this._healthCheck.execute(command)
+		this._client.say(channel, response.message)
 	}
 }
