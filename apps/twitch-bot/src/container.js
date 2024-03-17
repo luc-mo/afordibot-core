@@ -8,6 +8,7 @@ import { CommandPicker } from './domain/services/command-picker'
 import { CommandParser } from './domain/services/command-parser'
 
 import { AuthProvider } from './infrastructure/irc/auth-provider'
+import { viewerPermissionsHandler } from './infrastructure/irc/handlers/viewer-permissions-handler'
 
 import { MongoDbHandler } from './infrastructure/persistence/mongo/db-handler'
 import { AuthorizationRepository } from './infrastructure/persistence/mongo/authorization/repository'
@@ -38,6 +39,7 @@ container.register({
 
 	// IRC
 	authProvider: asClass(AuthProvider).singleton(),
+	viewerPermissionsHandler: asValue(viewerPermissionsHandler),
 
 	// Persistence
 	dbHandler: asClass(MongoDbHandler).singleton(),

@@ -7,6 +7,7 @@ import type { CommandPicker } from '@/domain/services/command-picker'
 import type { CommandParser } from '@/domain/services/command-parser'
 
 import type { AuthProvider } from '@/infrastructure/irc/auth-provider'
+import type { viewerPermissionsHandler } from '@/infrastructure/irc/handlers/viewer-permissions-handler'
 
 import type { MongoDbHandler } from '@/infrastructure/persistence/mongo/db-handler'
 import type { AuthorizationRepository } from '@/infrastructure/persistence/mongo/authorization/repository'
@@ -33,6 +34,7 @@ export interface Container {
 
 	// Auth provider
 	authProvider: AuthProvider
+	viewerPermissionsHandler: typeof viewerPermissionsHandler
 
 	// Persistence
 	dbHandler: MongoDbHandler
