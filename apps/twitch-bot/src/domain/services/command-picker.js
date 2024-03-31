@@ -7,23 +7,23 @@ export class CommandPicker {
 	_CREATE_COMMAND_REGEX = /^!afordicreate command(?:\s+.*)?$/i
 	_CHANNEL_COMMAND_REGEX = /^!(\w{1,25})(?:\s+.*)?$/i
 
-	healthCheck() {
+	get healthCheck() {
 		return R.test(this._HEALTH_CHECK_REGEX)
 	}
 
-	joinChannel() {
+	get joinChannel() {
 		return R.test(this._JOIN_CHANNEL_REGEX)
 	}
 
-	leaveChannel() {
+	get leaveChannel() {
 		return R.test(this._LEAVE_CHANNEL_REGEX)
 	}
 
-	createCommand() {
+	get createCommand() {
 		return R.test(this._CREATE_COMMAND_REGEX)
 	}
 
-	channelCommand() {
+	get channelCommand() {
 		return R.test(this._CHANNEL_COMMAND_REGEX)
 	}
 }
