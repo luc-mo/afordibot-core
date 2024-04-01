@@ -12,9 +12,11 @@ import type { viewerPermissionsHandler } from '@/infrastructure/irc/handlers/vie
 import type { MongoDbHandler } from '@/infrastructure/persistence/mongo/db-handler'
 import type { AuthorizationRepository } from '@/infrastructure/persistence/mongo/authorization/repository'
 import type { UserRepository } from '@/infrastructure/persistence/mongo/user/repository'
+import type { CommandRepository } from '@/infrastructure/persistence/mongo/command/repository'
 
 import type { authorizationDocumentParser } from '@/infrastructure/persistence/mongo/authorization/document-parser'
 import type { userDocumentParser } from '@/infrastructure/persistence/mongo/user/document-parser'
+import type { commandDocumentParser } from '@/infrastructure/persistence/mongo/command/document-parser'
 
 import type { HealthCheck } from '@/application/health-check'
 import type { FindBotUsernames } from '@/application/find-bot-usernames'
@@ -41,9 +43,11 @@ export interface Container {
 	dbHandler: MongoDbHandler
 	authorizationRepository: AuthorizationRepository
 	userRepository: UserRepository
+	commandRepository: CommandRepository
 
 	authorizationDocumentParser: typeof authorizationDocumentParser
 	userDocumentParser: typeof userDocumentParser
+	commandDocumentParser: typeof commandDocumentParser
 
 	// Use cases
 	healthCheck: HealthCheck

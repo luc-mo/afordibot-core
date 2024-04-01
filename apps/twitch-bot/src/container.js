@@ -14,9 +14,11 @@ import { viewerPermissionsHandler } from './infrastructure/irc/handlers/viewer-p
 import { MongoDbHandler } from './infrastructure/persistence/mongo/db-handler'
 import { AuthorizationRepository } from './infrastructure/persistence/mongo/authorization/repository'
 import { UserRepository } from './infrastructure/persistence/mongo/user/repository'
+import { CommandRepository } from './infrastructure/persistence/mongo/command/repository'
 
 import { authorizationDocumentParser } from './infrastructure/persistence/mongo/authorization/document-parser'
 import { userDocumentParser } from './infrastructure/persistence/mongo/user/document-parser'
+import { commandDocumentParser } from './infrastructure/persistence/mongo/command/document-parser'
 
 import { HealthCheck } from './application/health-check'
 import { FindBotUsernames } from './application/find-bot-usernames'
@@ -48,9 +50,11 @@ container.register({
 	dbHandler: asClass(MongoDbHandler).singleton(),
 	authorizationRepository: asClass(AuthorizationRepository),
 	userRepository: asClass(UserRepository),
+	commandRepository: asClass(CommandRepository),
 
 	authorizationDocumentParser: asFunction(authorizationDocumentParser),
 	userDocumentParser: asFunction(userDocumentParser),
+	commandDocumentParser: asFunction(commandDocumentParser),
 
 	// Use cases
 	healthCheck: asClass(HealthCheck),
