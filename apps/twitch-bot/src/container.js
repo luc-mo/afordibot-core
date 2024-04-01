@@ -22,6 +22,7 @@ import { commandDocumentParser } from './infrastructure/persistence/mongo/comman
 
 import { HealthCheck } from './application/health-check'
 import { FindBotUsernames } from './application/find-bot-usernames'
+import { CreateCommand } from './application/create-command'
 
 const container = createContainer({
 	injectionMode: InjectionMode.PROXY,
@@ -59,6 +60,7 @@ container.register({
 	// Use cases
 	healthCheck: asClass(HealthCheck),
 	findBotUsernames: asClass(FindBotUsernames),
+	createCommand: asClass(CreateCommand),
 })
 
 export { container }

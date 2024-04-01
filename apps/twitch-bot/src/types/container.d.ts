@@ -20,6 +20,7 @@ import type { commandDocumentParser } from '@/infrastructure/persistence/mongo/c
 
 import type { HealthCheck } from '@/application/health-check'
 import type { FindBotUsernames } from '@/application/find-bot-usernames'
+import type { CreateCommand } from '@/application/create-command'
 
 export interface Container {
 	// Libraries
@@ -52,4 +53,5 @@ export interface Container {
 	// Use cases
 	healthCheck: HealthCheck
 	findBotUsernames: FindBotUsernames
+	createCommand: CreateCommand
 }
