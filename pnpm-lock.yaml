@@ -131,6 +131,9 @@ importers:
       awilix:
         specifier: 9.0.0
         version: 9.0.0
+      axios:
+        specifier: 1.6.2
+        version: 1.6.2
       cross-env:
         specifier: 7.0.3
         version: 7.0.3

@@ -1,4 +1,5 @@
 import type crypto from 'node:crypto'
+import type axios from 'axios'
 import type * as mongodb from 'mongodb'
 import type { config } from '@/infrastructure/config'
 
@@ -25,6 +26,7 @@ import type { CreateCommand } from '@/application/create-command'
 export interface Container {
 	// Libraries
 	crypto: typeof crypto
+	axios: typeof axios
 	mongodb: typeof mongodb
 
 	// Config
