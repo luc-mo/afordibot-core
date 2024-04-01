@@ -1,7 +1,9 @@
 import * as R from 'ramda'
 import { ChatClient } from '@twurple/chat'
+import { InvalidCommandError, AlreadyExistsCommandError } from '@afordibot/core'
 
 import { HealthCheckCommand } from '@/application/health-check'
+import { CreateCommandCommand } from '@/application/create-command'
 
 export class IRCClient {
 	/**
@@ -13,16 +15,20 @@ export class IRCClient {
 		authProvider,
 		viewerPermissionsHandler,
 		commandPicker,
+		commandParser,
 		healthCheck,
 		findBotUsernames,
+		createCommand,
 	}) {
 		this._config = config
 		this._authProvider = authProvider
 		this._viewerPermissionsHandler = viewerPermissionsHandler
 		this._commandPicker = commandPicker
+		this._commandParser = commandParser
 
 		this._healthCheck = healthCheck
 		this._findBotUsernames = findBotUsernames
+		this._createCommand = createCommand
 	}
 
 	async connect() {
@@ -46,16 +52,40 @@ export class IRCClient {
 		const options = { channel, username, message, ctx, viewerPermissions }
 
 		try {
-			const condFn = R.cond([[this._commandPicker.healthCheck, this._onHealthCheck.bind(this)]])
-			condFn(options)
+			const condFn = R.cond([
+				[this._commandPicker.healthCheck, this._onHealthCheck.bind(this)],
+				[this._commandPicker.createCommand, this._onCreateCommand.bind(this)],
+			])
+			condFn(message, options)
 		} catch (error) {
 			console.error(error)
 		}
 	}
 
-	_onHealthCheck({ channel, viewerPermissions }) {
+	_onHealthCheck(_, { channel, viewerPermissions }) {
 		const command = new HealthCheckCommand(viewerPermissions)
 		const response = this._healthCheck.execute(command)
 		this._client.say(channel, response.message)
+	}
+
+	async _onCreateCommand(_, { channel, username, message, ctx, viewerPermissions }) {
+		const options = this._commandParser.parseCreateCommand(message)
+		const helixUserId = ctx.channelId
+		try {
+			const command = new CreateCommandCommand({ ...options, helixUserId, viewerPermissions })
+			await this._createCommand.execute(command)
+			this._client.say(
+				channel,
+				`@${username}, el comando !${options.name} ha sido creado correctamente!`
+			)
+		} catch (error) {
+			if (error instanceof InvalidCommandError) {
+				this._client.say(channel, `@${username}, el comando que intentas no es válido!`)
+			} else if (error instanceof AlreadyExistsCommandError) {
+				this._client.say(channel, `@${username}, el comando que intentas crear ya existe!`)
+			} else {
+				throw error
+			}
+		}
 	}
 }
