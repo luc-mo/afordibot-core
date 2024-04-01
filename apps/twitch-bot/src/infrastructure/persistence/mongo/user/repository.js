@@ -12,4 +12,11 @@ export class UserRepository {
 		const documents = await collection.find({ enabled: true }).toArray()
 		return documents.map((document) => this._userDocumentParser.toDomain(document))
 	}
+
+	async findByHelixId(helixId) {
+		const instance = await this._dbHandler.getInstance()
+		const collection = instance.collection(this._COLLECTION)
+		const document = await collection.findOne({ helixId })
+		return document ? this._userDocumentParser.toDomain(document) : null
+	}
 }
