@@ -13,11 +13,11 @@ export class CommandParser {
 		const regExps = this._createCommandRegExps(matcher)
 		const parser = R.curry(this._parseOption)(message)
 		return {
-			name: parser(regExps.name),
-			message: parser(regExps.message),
-			value: parser(regExps.value),
-			permission: parser(regExps.permission),
-			timeout: parser(regExps.timeout),
+			name: parser(regExps.name).valueOf(),
+			message: parser(regExps.message).valueOf(),
+			value: parser(regExps.value).valueOf(),
+			permission: parser(regExps.permission).orElse('everyone'),
+			timeout: parser(regExps.timeout).bind(parseInt).orElse(0),
 		}
 	}
 
@@ -37,11 +37,10 @@ export class CommandParser {
 			.bind(R.map(R.prop('source')))
 			.bind(R.join(''))
 			.bind(RegExp)
-			.bind(R.nth(1))
 			.valueOf()
 	}
 
 	_parseOption(message, regExp) {
-		return new Maybe(message).bind(R.match(regExp)).map(R.nth(1)).valueOf()
+		return new Maybe(message).bind(R.match(regExp)).bind(R.nth(1))
 	}
 }
