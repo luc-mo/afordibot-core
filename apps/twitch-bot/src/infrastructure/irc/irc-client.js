@@ -3,6 +3,8 @@ import { ChatClient } from '@twurple/chat'
 import { InvalidCommandError, AlreadyExistsCommandError } from '@afordibot/core'
 
 import { HealthCheckCommand } from '@/application/health-check'
+import { JoinChannelCommand } from '@/application/join-channel'
+import { LeaveChannelCommand } from '@/application/leave-channel'
 import { CreateCommandCommand } from '@/application/create-command'
 
 export class IRCClient {
@@ -18,6 +20,8 @@ export class IRCClient {
 		commandParser,
 		healthCheck,
 		findBotUsernames,
+		joinChannel,
+		leaveChannel,
 		createCommand,
 	}) {
 		this._config = config
@@ -28,6 +32,8 @@ export class IRCClient {
 
 		this._healthCheck = healthCheck
 		this._findBotUsernames = findBotUsernames
+		this._joinChannel = joinChannel
+		this._leaveChannel = leaveChannel
 		this._createCommand = createCommand
 	}
 
@@ -47,25 +53,44 @@ export class IRCClient {
 		this._client.connect()
 	}
 
-	_onMessage(channel, username, message, ctx) {
+	async _onMessage(channel, username, message, ctx) {
 		const viewerPermissions = this._viewerPermissionsHandler(ctx)
 		const options = { channel, username, message, ctx, viewerPermissions }
 
 		try {
 			const condFn = R.cond([
 				[this._commandPicker.healthCheck, this._onHealthCheck.bind(this)],
+				[this._commandPicker.joinChannel, this._onJoinChannel.bind(this)],
+				[this._commandPicker.leaveChannel, this._onLeaveChannel.bind(this)],
 				[this._commandPicker.createCommand, this._onCreateCommand.bind(this)],
 			])
-			condFn(message, options)
+			await condFn(message, options)
 		} catch (error) {
 			console.error(error)
 		}
 	}
 
-	_onHealthCheck(_, { channel, viewerPermissions }) {
+	async _onHealthCheck(_, { channel, viewerPermissions }) {
 		const command = new HealthCheckCommand(viewerPermissions)
 		const response = this._healthCheck.execute(command)
-		this._client.say(channel, response.message)
+		await this._client.say(channel, response.message)
+	}
+
+	async _onJoinChannel(_, { channel, username, ctx }) {
+		const command = new JoinChannelCommand(ctx.userInfo.userId)
+		await this._joinChannel.execute(command)
+		await this._client.join(username)
+		await this._client.say(
+			channel,
+			`@${username}, ahora podrás encontrarme en tu canal afordiLove!`
+		)
+	}
+
+	async _onLeaveChannel(_, { channel, username, ctx }) {
+		const command = new LeaveChannelCommand(ctx.userInfo.userId)
+		await this._leaveChannel.execute(command)
+		await this._client.part(username)
+		await this._client.say(channel, `@${username}, desde ahora no estaré en tu canal afordiSad`)
 	}
 
 	async _onCreateCommand(_, { channel, username, message, ctx, viewerPermissions }) {
@@ -74,7 +99,7 @@ export class IRCClient {
 		try {
 			const command = new CreateCommandCommand({ ...options, helixUserId, viewerPermissions })
 			await this._createCommand.execute(command)
-			this._client.say(
+			await this._client.say(
 				channel,
 				`@${username}, el comando !${options.name} ha sido creado correctamente!`
 			)
