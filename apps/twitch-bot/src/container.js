@@ -8,6 +8,8 @@ import { IdGenerator, Cipher } from '@afordibot/core'
 import { CommandPicker } from './domain/services/command-picker'
 import { CommandParser } from './domain/services/command-parser'
 
+import { AxiosHttpClient } from './infrastructure/services/axios-http-client'
+
 import { AuthProvider } from './infrastructure/irc/auth-provider'
 import { IRCClient } from './infrastructure/irc/irc-client'
 import { viewerPermissionsHandler } from './infrastructure/irc/handlers/viewer-permissions-handler'
@@ -43,6 +45,9 @@ container.register({
 	cipher: asClass(Cipher),
 	commandPicker: asClass(CommandPicker),
 	commandParser: asClass(CommandParser),
+
+	// Infrastructure services
+	httpClient: asClass(AxiosHttpClient),
 
 	// IRC
 	authProvider: asClass(AuthProvider).singleton(),

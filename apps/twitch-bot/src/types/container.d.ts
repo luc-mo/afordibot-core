@@ -7,6 +7,8 @@ import type { IdGenerator, Cipher } from '@afordibot/core'
 import type { CommandPicker } from '@/domain/services/command-picker'
 import type { CommandParser } from '@/domain/services/command-parser'
 
+import type { AxiosHttpClient } from '@/infrastructure/services/axios-http-client'
+
 import type { AuthProvider } from '@/infrastructure/irc/auth-provider'
 import type { viewerPermissionsHandler } from '@/infrastructure/irc/handlers/viewer-permissions-handler'
 
@@ -37,6 +39,9 @@ export interface Container {
 	cipher: Cipher
 	commandPicker: CommandPicker
 	commandParser: CommandParser
+
+	// Infrastructure services
+	httpClient: AxiosHttpClient
 
 	// Auth provider
 	authProvider: AuthProvider
