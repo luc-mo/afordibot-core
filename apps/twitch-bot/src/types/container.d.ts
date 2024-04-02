@@ -25,6 +25,7 @@ import type { commandDocumentParser } from '@/infrastructure/persistence/mongo/c
 import type { HealthCheck } from '@/application/health-check'
 import type { FindBotUsernames } from '@/application/find-bot-usernames'
 import type { JoinChannel } from './application/join-channel'
+import type { LeaveChannel } from './application/leave-channel'
 import type { CreateCommand } from '@/application/create-command'
 
 export interface Container {
@@ -64,5 +65,6 @@ export interface Container {
 	healthCheck: HealthCheck
 	findBotUsernames: FindBotUsernames
 	joinChannel: JoinChannel
+	leaveChannel: LeaveChannel
 	createCommand: CreateCommand
 }
