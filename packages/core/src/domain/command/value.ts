@@ -15,7 +15,7 @@ export class Value implements IValue {
 		return new Value(value)
 	}
 
-	_assertValue(value: string) {
+	private _assertValue(value: string) {
 		const hasLength = R.pipe(R.length, between(1, 25))
 		const validator = R.pipe(validate(R.is(String), hasLength), R.not)
 		if (validator(value)) {

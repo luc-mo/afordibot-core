@@ -15,7 +15,7 @@ export class Message implements IMessage {
 		return new Message(value)
 	}
 
-	_assertMessage(value: string) {
+	private _assertMessage(value: string) {
 		const hasLength = R.pipe(R.length, between(1, 500))
 		const validator = R.pipe(validate(R.is(String), hasLength), R.not)
 		if (validator(value)) {

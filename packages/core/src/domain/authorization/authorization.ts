@@ -26,21 +26,21 @@ export class Authorization implements IAuthorization {
 		this._scope = R.uniq(scope)
 	}
 
-	_assertField(field: 'accessToken' | 'refreshToken', value: string) {
+	private _assertField(field: 'accessToken' | 'refreshToken', value: string) {
 		const validator = R.pipe(R.is(String), R.not)
 		if (validator(value)) {
 			throw new InvalidAuthorizationError(`Property ${field} should be a string`)
 		}
 	}
 
-	_assertExpiresIn(value: number) {
+	private _assertExpiresIn(value: number) {
 		const validator = R.pipe(R.is(Number), R.not)
 		if (validator(value)) {
 			throw new InvalidAuthorizationError('Property "expiresIn" should be a number')
 		}
 	}
 
-	_assertScope(value: string[]) {
+	private _assertScope(value: string[]) {
 		const validator = R.pipe(validate(R.is(Array), R.all(R.is(String))), R.not)
 		if (validator(value)) {
 			throw new InvalidAuthorizationError('Property "scope" should be a string array')

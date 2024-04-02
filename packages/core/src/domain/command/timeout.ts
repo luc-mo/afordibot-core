@@ -11,7 +11,7 @@ export class Timeout implements ITimeout {
 		this.value = value
 	}
 
-	_assertTimeout(value: string) {
+	private _assertTimeout(value: string) {
 		const validator = R.pipe(validate(Number.isInteger, between(0, 3600)), R.not)
 		if (validator(value)) {
 			throw new InvalidCommandError(

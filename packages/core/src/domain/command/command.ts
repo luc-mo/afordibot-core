@@ -1,4 +1,6 @@
 import * as R from 'ramda'
+import { pickRandomItem } from '@/shared/functions'
+
 import { UUID } from '@/domain/uuid'
 import { HelixUserId } from '@/domain/helix-user-id'
 import { Timestamp } from '@/domain/timestamp'
@@ -58,7 +60,7 @@ export class Command implements ICommand {
 		this._updatedBy = new HelixUserId(updatedBy)
 	}
 
-	_assertNameArray(value: string[]) {
+	private _assertNameArray(value: string[]) {
 		const validator = R.pipe(R.is(Array), R.not)
 		if (validator(value)) {
 			throw new InvalidCommandError(
@@ -71,7 +73,7 @@ export class Command implements ICommand {
 		}
 	}
 
-	_assertMessageArray(value: string[]) {
+	private _assertMessageArray(value: string[]) {
 		const validator = R.pipe(R.is(Array), R.not)
 		if (validator(value)) {
 			throw new InvalidCommandError(
@@ -84,7 +86,7 @@ export class Command implements ICommand {
 		}
 	}
 
-	_assertValueArray(value: string[]) {
+	private _assertValueArray(value: string[]) {
 		const validator = R.pipe(R.is(Array), R.not)
 		if (validator(value)) {
 			throw new InvalidCommandError(
@@ -93,7 +95,7 @@ export class Command implements ICommand {
 		}
 	}
 
-	_assertEnabled(value: boolean) {
+	private _assertEnabled(value: boolean) {
 		const validator = R.pipe(R.is(Boolean), R.not)
 		if (validator(value)) {
 			throw new InvalidCommandError('Property "enabled" must be a boolean')

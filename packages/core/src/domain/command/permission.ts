@@ -11,7 +11,7 @@ export class Permission implements IPermission {
 		this.value = value
 	}
 
-	_assertPermission(value: string) {
+	private _assertPermission(value: string) {
 		const validator = R.pipe(R.includes(R.__, this._VALID_PERMISSIONS), R.not)
 		if (validator(value)) {
 			const formatter = new Intl.ListFormat('en', { style: 'long', type: 'disjunction' })

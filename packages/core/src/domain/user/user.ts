@@ -16,6 +16,9 @@ export class User implements IUser {
 	private readonly _enabled: boolean
 
 	constructor({ id, helixId, username, displayName, imageUrl, enabled }: Constructor) {
+		this._assertUsername(username)
+		this._assertImageUrl(imageUrl)
+		this._assertEnabled(enabled)
 		this._id = new UUID(id)
 		this._helixId = new HelixUserId(helixId)
 		this._username = username
@@ -24,7 +27,7 @@ export class User implements IUser {
 		this._enabled = enabled
 	}
 
-	_assertUsername(value: string) {
+	private _assertUsername(value: string) {
 		const hasLength = R.pipe(R.length, between(4, 25))
 		const validator = R.pipe(validate(R.is(String), hasLength), R.not)
 		if (validator(value)) {
@@ -32,14 +35,14 @@ export class User implements IUser {
 		}
 	}
 
-	_assertImageUrl(value: string) {
+	private _assertImageUrl(value: string) {
 		const validator = R.pipe(R.test(this._IMAGE_URL_REGEXP), R.not)
 		if (validator(value)) {
 			throw new InvalidUserError('Property "imageUrl" must be a valid url')
 		}
 	}
 
-	_assertEnabled(value: string) {
+	private _assertEnabled(value: boolean) {
 		const validator = R.pipe(R.is(Boolean), R.not)
 		if (validator(value)) {
 			throw new InvalidUserError('Property "enabled" must be a boolean value')

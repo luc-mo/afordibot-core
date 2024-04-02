@@ -15,14 +15,14 @@ export class Timestamp implements ITimestamp {
 		this.updatedAt = updatedAt
 	}
 
-	_assertTimestamp(value: number, name: 'createdAt' | 'updatedAt') {
+	private _assertTimestamp(value: number, name: 'createdAt' | 'updatedAt') {
 		const validator = R.pipe(validate(R.lt(0), Number.isInteger, Number.isFinite), R.not)
 		if (validator(value)) {
 			throw new InvalidTimestampError(`Timestamp "${name}" must be a positive integer`)
 		}
 	}
 
-	_assertTemporalOrder(createdAt: number, updatedAt: number) {
+	private _assertTemporalOrder(createdAt: number, updatedAt: number) {
 		if (createdAt > updatedAt) {
 			throw new InvalidTimestampError(`Timestamp "updatedAt" must be greater than "createdAt"`)
 		}

@@ -15,7 +15,7 @@ export class Name implements IName {
 		return new Name(value)
 	}
 
-	_assertName(value: string) {
+	private _assertName(value: string) {
 		const hasLength = R.pipe(R.length, between(1, 25))
 		const validator = R.pipe(validate(R.is(String), hasLength), R.not)
 		if (validator(value)) {
