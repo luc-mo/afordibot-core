@@ -19,4 +19,11 @@ export class UserRepository {
 		const document = await collection.findOne({ helixId })
 		return document ? this._userDocumentParser.toDomain(document) : null
 	}
+
+	async save(user) {
+		const instance = await this._dbHandler.getInstance()
+		const collection = instance.collection(this._COLLECTION)
+		const document = this._userDocumentParser.toDocument(user)
+		await collection.updateOne({ _id: document._id }, { $set: document }, { upsert: true })
+	}
 }

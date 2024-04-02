@@ -26,6 +26,7 @@ import { commandDocumentParser } from './infrastructure/persistence/mongo/comman
 
 import { HealthCheck } from './application/health-check'
 import { FindBotUsernames } from './application/find-bot-usernames'
+import { JoinChannel } from './application/join-channel'
 import { CreateCommand } from './application/create-command'
 
 const container = createContainer({
@@ -69,6 +70,7 @@ container.register({
 	// Use cases
 	healthCheck: asClass(HealthCheck),
 	findBotUsernames: asClass(FindBotUsernames),
+	joinChannel: asClass(JoinChannel),
 	createCommand: asClass(CreateCommand),
 })
 
