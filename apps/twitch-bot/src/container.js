@@ -9,6 +9,7 @@ import { CommandPicker } from './domain/services/command-picker'
 import { CommandParser } from './domain/services/command-parser'
 
 import { AxiosHttpClient } from './infrastructure/services/axios-http-client'
+import { RestHelixClient } from '@/infrastructure/services/rest-helix-client'
 
 import { AuthProvider } from './infrastructure/irc/auth-provider'
 import { IRCClient } from './infrastructure/irc/irc-client'
@@ -48,6 +49,7 @@ container.register({
 
 	// Infrastructure services
 	httpClient: asClass(AxiosHttpClient),
+	restHelixClient: asClass(RestHelixClient),
 
 	// IRC
 	authProvider: asClass(AuthProvider).singleton(),

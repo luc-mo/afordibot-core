@@ -8,6 +8,7 @@ import type { CommandPicker } from '@/domain/services/command-picker'
 import type { CommandParser } from '@/domain/services/command-parser'
 
 import type { AxiosHttpClient } from '@/infrastructure/services/axios-http-client'
+import type { RestHelixClient } from '@/infrastructure/services/rest-helix-client'
 
 import type { AuthProvider } from '@/infrastructure/irc/auth-provider'
 import type { viewerPermissionsHandler } from '@/infrastructure/irc/handlers/viewer-permissions-handler'
@@ -42,6 +43,7 @@ export interface Container {
 
 	// Infrastructure services
 	httpClient: AxiosHttpClient
+	restHelixClient: RestHelixClient
 
 	// Auth provider
 	authProvider: AuthProvider
