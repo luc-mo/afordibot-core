@@ -1,6 +1,7 @@
 import { createContainer, InjectionMode, asValue, asClass, asFunction } from 'awilix'
 import crypto from 'node:crypto'
 import axios from 'axios'
+import admin from 'firebase-admin'
 import * as mongodb from 'mongodb'
 import { config } from './infrastructure/config'
 
@@ -38,6 +39,7 @@ container.register({
 	// Libraries
 	crypto: asValue(crypto),
 	axios: asValue(axios),
+	admin: asValue(admin),
 	mongodb: asValue(mongodb),
 
 	// Config

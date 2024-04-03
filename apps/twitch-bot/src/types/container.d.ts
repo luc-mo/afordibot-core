@@ -1,5 +1,6 @@
 import type crypto from 'node:crypto'
 import type axios from 'axios'
+import type admin from 'firebase-admin'
 import type * as mongodb from 'mongodb'
 import type { config } from '@/infrastructure/config'
 
@@ -33,6 +34,7 @@ export interface Container {
 	crypto: typeof crypto
 	axios: typeof axios
 	mongodb: typeof mongodb
+	admin: typeof admin
 
 	// Config
 	config: typeof config
