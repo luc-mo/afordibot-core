@@ -15,7 +15,7 @@ export const config = {
 		projectId: process.env.FIREBASE_PROJECT_ID,
 		clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
 		privateKey: process.env.FIREBASE_PRIVATE_KEY,
-		databaseUrl: process.env.FIREBASE_DATABASE_URL,
+		databaseURL: process.env.FIREBASE_DATABASE_URL,
 	},
 	bot: {
 		botId: process.env.BOT_ID,

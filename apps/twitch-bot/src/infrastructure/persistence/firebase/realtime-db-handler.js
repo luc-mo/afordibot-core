@@ -22,7 +22,7 @@ export class FirebaseRealtimeDbHandler {
 					clientEmail: this._config.firebase.clientEmail,
 					privateKey: this._config.firebase.privateKey,
 				}),
-				databaseURL: this._config.firebaseConfig.databaseURL,
+				databaseURL: this._config.firebase.databaseURL,
 			})
 			this._db = this._admin.database(this._app)
 			return this._db
