@@ -17,6 +17,8 @@ import { IRCClient } from './infrastructure/irc/irc-client'
 import { viewerPermissionsHandler } from './infrastructure/irc/handlers/viewer-permissions-handler'
 
 import { MongoDbHandler } from './infrastructure/persistence/mongo/db-handler'
+import { FirebaseRealtimeDbHandler } from './infrastructure/persistence/firebase/realtime-db-handler'
+
 import { AuthorizationRepository } from './infrastructure/persistence/mongo/authorization/repository'
 import { UserRepository } from './infrastructure/persistence/mongo/user/repository'
 import { CommandRepository } from './infrastructure/persistence/mongo/command/repository'
@@ -62,10 +64,14 @@ container.register({
 
 	// Persistence
 	dbHandler: asClass(MongoDbHandler).singleton(),
+	realtimeDbHandler: asClass(FirebaseRealtimeDbHandler).singleton(),
+
+	// Repositories
 	authorizationRepository: asClass(AuthorizationRepository),
 	userRepository: asClass(UserRepository),
 	commandRepository: asClass(CommandRepository),
 
+	// Document parsers
 	authorizationDocumentParser: asFunction(authorizationDocumentParser),
 	userDocumentParser: asFunction(userDocumentParser),
 	commandDocumentParser: asFunction(commandDocumentParser),

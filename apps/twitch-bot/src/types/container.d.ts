@@ -15,6 +15,8 @@ import type { AuthProvider } from '@/infrastructure/irc/auth-provider'
 import type { viewerPermissionsHandler } from '@/infrastructure/irc/handlers/viewer-permissions-handler'
 
 import type { MongoDbHandler } from '@/infrastructure/persistence/mongo/db-handler'
+import type { FirebaseRealtimeDbHandler } from '@/infrastructure/persistence/firebase/realtime-db-handler'
+
 import type { AuthorizationRepository } from '@/infrastructure/persistence/mongo/authorization/repository'
 import type { UserRepository } from '@/infrastructure/persistence/mongo/user/repository'
 import type { CommandRepository } from '@/infrastructure/persistence/mongo/command/repository'
@@ -55,10 +57,14 @@ export interface Container {
 
 	// Persistence
 	dbHandler: MongoDbHandler
+	realtimeDbHandler: FirebaseRealtimeDbHandler
+
+	// Repositories
 	authorizationRepository: AuthorizationRepository
 	userRepository: UserRepository
 	commandRepository: CommandRepository
 
+	// Document parsers
 	authorizationDocumentParser: typeof authorizationDocumentParser
 	userDocumentParser: typeof userDocumentParser
 	commandDocumentParser: typeof commandDocumentParser
