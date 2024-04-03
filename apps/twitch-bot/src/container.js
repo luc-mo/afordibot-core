@@ -33,6 +33,7 @@ import { FindBotUsernames } from './application/find-bot-usernames'
 import { JoinChannel } from './application/join-channel'
 import { LeaveChannel } from './application/leave-channel'
 import { CreateCommand } from './application/create-command'
+import { UseCommand } from './application/use-command'
 
 const container = createContainer({
 	injectionMode: InjectionMode.PROXY,
@@ -84,6 +85,7 @@ container.register({
 	joinChannel: asClass(JoinChannel),
 	leaveChannel: asClass(LeaveChannel),
 	createCommand: asClass(CreateCommand),
+	useCommand: asClass(UseCommand),
 })
 
 export { container }

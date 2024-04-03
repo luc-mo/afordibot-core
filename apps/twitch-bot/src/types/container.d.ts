@@ -31,6 +31,7 @@ import type { FindBotUsernames } from '@/application/find-bot-usernames'
 import type { JoinChannel } from './application/join-channel'
 import type { LeaveChannel } from './application/leave-channel'
 import type { CreateCommand } from '@/application/create-command'
+import type { UseCommand } from '@/application/use-command'
 
 export interface Container {
 	// Libraries
@@ -77,4 +78,5 @@ export interface Container {
 	joinChannel: JoinChannel
 	leaveChannel: LeaveChannel
 	createCommand: CreateCommand
+	useCommand: UseCommand
 }
