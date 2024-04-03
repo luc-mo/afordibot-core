@@ -1,6 +1,10 @@
 import { Command } from '@afordibot/core'
 import { getValue } from '@/shared/functions'
 
+/**
+ * @typedef { import('@/types/container').Container Container }
+ * @param {Container} dependencies
+ */
 export const commandDocumentParser = ({ mongodb }) => {
 	return {
 		toDomain: (document) => {

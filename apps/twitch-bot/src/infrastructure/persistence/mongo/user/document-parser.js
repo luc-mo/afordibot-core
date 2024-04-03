@@ -1,6 +1,10 @@
 import { User } from '@afordibot/core'
 import { getValue } from '@/shared/functions'
 
+/**
+ * @typedef { import('@/types/container').Container Container }
+ * @param {Container} dependencies
+ */
 export const userDocumentParser = ({ mongodb }) => {
 	return {
 		toDomain: ({ _id, helixId, username, displayName, imageUrl, enabled }) => {

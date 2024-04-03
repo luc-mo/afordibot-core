@@ -11,6 +11,12 @@ export const config = {
 		dbName: process.env.MONGO_DB_NAME,
 		timeout: 5000,
 	},
+	firebase: {
+		projectId: process.env.FIREBASE_PROJECT_ID,
+		clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+		privateKey: process.env.FIREBASE_PRIVATE_KEY,
+		databaseUrl: process.env.FIREBASE_DATABASE_URL,
+	},
 	bot: {
 		botId: process.env.BOT_ID,
 		clientId: process.env.BOT_CLIENT_ID,

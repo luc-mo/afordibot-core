@@ -1,6 +1,10 @@
 import { Authorization } from '@afordibot/core'
 import { getValue } from '@/shared/functions'
 
+/**
+ * @typedef { import('@/types/container').Container Container }
+ * @param {Container} dependencies
+ */
 export const authorizationDocumentParser = ({ mongodb, cipher }) => {
 	return {
 		toDomain: ({ _id, helixUserId, accessToken, refreshToken, expiresIn, scope }) => {

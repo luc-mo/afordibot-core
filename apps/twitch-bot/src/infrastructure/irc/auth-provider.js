@@ -7,6 +7,10 @@ export class AuthProvider {
 	_authProvider = null
 	_instance = null
 
+	/**
+	 * @typedef { import('@/types/container').Container Container }
+	 * @param {Container} dependencies
+	 */
 	constructor({ config, authorizationRepository }) {
 		this._config = config
 		this._authorizationRepository = authorizationRepository

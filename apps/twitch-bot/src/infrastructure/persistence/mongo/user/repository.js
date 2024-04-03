@@ -1,6 +1,10 @@
 export class UserRepository {
 	_COLLECTION = 'users'
 
+	/**
+	 * @typedef { import('@/types/container').Container Container }
+	 * @param {Container} dependencies
+	 */
 	constructor({ dbHandler, userDocumentParser }) {
 		this._dbHandler = dbHandler
 		this._userDocumentParser = userDocumentParser

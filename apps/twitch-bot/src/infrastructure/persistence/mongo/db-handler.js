@@ -5,6 +5,10 @@ export class MongoDbHandler {
 	_database = null
 	_instance = null
 
+	/**
+	 * @typedef { import('@/types/container').Container Container }
+	 * @param {Container} dependencies
+	 */
 	constructor({ mongodb, config }) {
 		this._mongodb = mongodb
 		this._config = config

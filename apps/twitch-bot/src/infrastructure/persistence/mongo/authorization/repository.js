@@ -1,6 +1,10 @@
 export class AuthorizationRepository {
 	_COLLECTION = 'authorization'
 
+	/**
+	 * @typedef { import('@/types/container').Container Container }
+	 * @param {Container} dependencies
+	 */
 	constructor({ dbHandler, authorizationDocumentParser }) {
 		this._dbHandler = dbHandler
 		this._authorizationDocumentParser = authorizationDocumentParser
