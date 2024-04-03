@@ -10,7 +10,7 @@ export const commandDocumentParser = ({ mongodb }) => {
 		toDomain: (document) => {
 			return new Command({
 				id: document._id.toString(),
-				userId: document.userId,
+				userId: document.userId.toString(),
 				helixUserId: document.helixUserId,
 				names: document.names,
 				messages: document.messages,
@@ -34,7 +34,7 @@ export const commandDocumentParser = ({ mongodb }) => {
 				values: entity.values.map(getValue),
 				permission: getValue(entity.permission),
 				timeout: getValue(entity.timeout),
-				enabled: getValue(entity.enabled),
+				enabled: entity.enabled,
 				createdAt: new Date(entity.timestamp.createdAt),
 				updatedAt: new Date(entity.timestamp.updatedAt),
 				createdBy: getValue(entity.createdBy),
