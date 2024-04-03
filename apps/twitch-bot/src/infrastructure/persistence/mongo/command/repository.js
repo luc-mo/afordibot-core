@@ -18,6 +18,14 @@ export class CommandRepository {
 		return document ? this._commandDocumentParser.toDomain(document) : null
 	}
 
+	async findByHelixUserIdAndName({ helixUserId, name }) {
+		const instance = await this._dbHandler.getInstance()
+		const collection = instance.collection(this._COLLECTION)
+		const query = { helixUserId, names: { $in: [name] } }
+		const document = await collection.findOne(query)
+		return document ? this._commandDocumentParser.toDomain(document) : null
+	}
+
 	async save(command) {
 		const instance = await this._dbHandler.getInstance()
 		const collection = instance.collection(this._COLLECTION)
