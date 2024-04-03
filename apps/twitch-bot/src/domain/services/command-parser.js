@@ -21,6 +21,18 @@ export class CommandParser {
 		}
 	}
 
+	parseUseCommand(message, sender) {
+		const matcher = /^!(\w{1,25})(?: @([a-zA-Z0-9_]{4,25}))?(?:\s+.*)?$/i
+		const match = new Maybe(message).bind(R.match(matcher)).valueOf()
+		const usernameMatch = new Maybe(match).bind(R.nth(2))
+
+		const name = new Maybe(match).bind(R.nth(1)).valueOf()
+		const username = usernameMatch.orElse(sender)
+		const receiver = usernameMatch.valueOf()
+
+		return { name, username, sender, receiver }
+	}
+
 	_createCommandRegExps(matcher) {
 		const joinSources = R.curry(this._joinMatcherSource)(matcher)
 		return {

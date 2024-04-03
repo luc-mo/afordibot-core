@@ -6,6 +6,7 @@ import { HealthCheckCommand } from '@/application/health-check'
 import { JoinChannelCommand } from '@/application/join-channel'
 import { LeaveChannelCommand } from '@/application/leave-channel'
 import { CreateCommandCommand } from '@/application/create-command'
+import { UseCommandCommand } from '@/application/use-command'
 
 export class IRCClient {
 	/**
@@ -23,6 +24,7 @@ export class IRCClient {
 		joinChannel,
 		leaveChannel,
 		createCommand,
+		useCommand,
 	}) {
 		this._config = config
 		this._authProvider = authProvider
@@ -35,6 +37,7 @@ export class IRCClient {
 		this._joinChannel = joinChannel
 		this._leaveChannel = leaveChannel
 		this._createCommand = createCommand
+		this._useCommand = useCommand
 	}
 
 	async connect() {
@@ -63,6 +66,7 @@ export class IRCClient {
 				[this._commandPicker.joinChannel, this._onJoinChannel.bind(this)],
 				[this._commandPicker.leaveChannel, this._onLeaveChannel.bind(this)],
 				[this._commandPicker.createCommand, this._onCreateCommand.bind(this)],
+				[this._commandPicker.useCommand, this._onUseCommand.bind(this)],
 			])
 			await condFn(message, options)
 		} catch (error) {
@@ -112,5 +116,13 @@ export class IRCClient {
 				throw error
 			}
 		}
+	}
+
+	async _onUseCommand(_, { channel, username, message, ctx, viewerPermissions }) {
+		const options = this._commandParser.parseUseCommand(message, username)
+		const helixUserId = ctx.channelId
+		const command = new UseCommandCommand({ ...options, helixUserId, viewerPermissions })
+		const response = await this._useCommand.execute(command)
+		this._client.say(channel, response.message)
 	}
 }
