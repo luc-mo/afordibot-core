@@ -24,7 +24,7 @@ export class UseCommand {
 			user: username,
 			sender,
 			receiver,
-			count,
+			count: count + 1,
 		})
 
 		await this._realtimeCommandRepository.incrementCountByCommandId(commandId)

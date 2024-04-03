@@ -13,7 +13,7 @@ export class RealtimeCommandRepository {
 		const instance = this._realtimeDbHandler.getInstance()
 		const ref = instance.ref(`${this._COLLECTION}/${id}`)
 		const snapshot = await ref.once('value')
-		return snapshot.val() ?? 1
+		return snapshot.val() ?? 0
 	}
 
 	async incrementCountByCommandId(id) {
