@@ -1,5 +1,6 @@
 import * as R from 'ramda'
-import { pickRandomItem } from '@/shared/functions'
+import { getValue, pickRandomItem } from '@/shared/functions'
+import { Maybe } from '@/shared/maybe'
 
 import { UUID } from '@/domain/uuid'
 import { HelixUserId } from '@/domain/helix-user-id'
@@ -11,7 +12,7 @@ import { Value } from './value'
 import { Permission } from './permission'
 import { Timeout } from './timeout'
 import { InvalidCommandError } from './errors/invalid-command-error'
-import type { ICommand } from './types'
+import type { ICommand, IPickMessageProps } from './types'
 
 export class Command implements ICommand {
 	private readonly _id: UUID
@@ -58,6 +59,35 @@ export class Command implements ICommand {
 		this._timestamp = new Timestamp(createdAt, updatedAt)
 		this._createdBy = new HelixUserId(createdBy)
 		this._updatedBy = new HelixUserId(updatedBy)
+	}
+
+	public pickRandomMessage({ user, sender, receiver, count }: IPickMessageProps) {
+		const hasReceiver = R.always(Boolean(receiver))
+		const value = this._pickRandomValue()
+
+		return new Maybe(this._messages)
+			.bind(R.filter(this._filterMessages(hasReceiver)))
+			.bind(pickRandomItem)
+			.bind((m) => m.replaceFlagIfExists('value', value))
+			.bind((m) => m.replaceFlagIfExists('user', user))
+			.bind((m) => m.replaceFlagIfExists('sender', sender))
+			.bind((m) => m.replaceFlagIfExists('receiver', receiver))
+			.bind((m) => m.replaceFlagIfExists('count', count))
+			.bind(getValue)
+			.valueOf()!
+	}
+
+	private _pickRandomValue() {
+		return new Maybe(this._values)
+			.bind((values) => values.map(getValue))
+			.bind(pickRandomItem)
+			.valueOf()
+	}
+
+	private _filterMessages(hasReceiver: HasReceiverFn) {
+		const hasReceiverTest = R.test(/\$receiver/gi)
+		const filterFn = R.ifElse(hasReceiver, hasReceiverTest, R.complement(hasReceiverTest))
+		return (message: Message) => R.pipe(getValue, filterFn)(message)
 	}
 
 	private _assertNameArray(value: string[]) {
@@ -165,3 +195,5 @@ interface Constructor {
 	createdBy: string
 	updatedBy: string
 }
+
+type HasReceiverFn = (...args: any) => boolean
