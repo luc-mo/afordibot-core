@@ -10,6 +10,14 @@ export interface IMessage {
 	value: string
 }
 
+export interface IMessageRegExps {
+	value: RegExp
+	user: RegExp
+	sender: RegExp
+	receiver: RegExp
+	count: RegExp
+}
+
 export interface IValue {
 	value: string
 }

@@ -1,9 +1,16 @@
 import * as R from 'ramda'
 import { validate, between } from '@/shared/functions'
 import { InvalidCommandError } from './errors/invalid-command-error'
-import type { IMessage } from './types'
+import type { IMessage, IMessageRegExps } from './types'
 
 export class Message implements IMessage {
+	private readonly REG_EXPS: IMessageRegExps = {
+		value: /\$value/gi,
+		user: /\$user/gi,
+		sender: /\$sender/gi,
+		receiver: /\$receiver/gi,
+		count: /\$count/gi,
+	}
 	public readonly value: string
 
 	constructor(value: string) {
@@ -13,6 +20,15 @@ export class Message implements IMessage {
 
 	static create(value: string) {
 		return new Message(value)
+	}
+
+	public replaceFlagIfExists(flagName: keyof IMessageRegExps, value: any) {
+		const notExists = R.isNil(value)
+		if (notExists) return this
+
+		const regExp = this.REG_EXPS[flagName]
+		const message = R.replace(regExp, value, this.value)
+		return Message.create(message)
 	}
 
 	private _assertMessage(value: string) {
