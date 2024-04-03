@@ -1,5 +1,7 @@
 import * as R from 'ramda'
 
+export const getValue = R.prop('value')
+
 export const validate =
 	(...fns: any[]) =>
 	(value: any) =>

@@ -44,3 +44,10 @@ export interface ICommand {
 	createdBy: IHelixUserId
 	updatedBy: IHelixUserId
 }
+
+export interface IPickMessageProps {
+	user: string | undefined
+	sender: string | undefined
+	receiver: string | undefined
+	count: number | undefined
+}
