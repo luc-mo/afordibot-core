@@ -22,6 +22,7 @@ import { FirebaseRealtimeDbHandler } from './infrastructure/persistence/firebase
 import { AuthorizationRepository } from './infrastructure/persistence/mongo/authorization/repository'
 import { UserRepository } from './infrastructure/persistence/mongo/user/repository'
 import { CommandRepository } from './infrastructure/persistence/mongo/command/repository'
+import { RealtimeCommandRepository } from '@/infrastructure/persistence/firebase/command/repository'
 
 import { authorizationDocumentParser } from './infrastructure/persistence/mongo/authorization/document-parser'
 import { userDocumentParser } from './infrastructure/persistence/mongo/user/document-parser'
@@ -70,6 +71,7 @@ container.register({
 	authorizationRepository: asClass(AuthorizationRepository),
 	userRepository: asClass(UserRepository),
 	commandRepository: asClass(CommandRepository),
+	realtimeCommandRepository: asClass(RealtimeCommandRepository),
 
 	// Document parsers
 	authorizationDocumentParser: asFunction(authorizationDocumentParser),

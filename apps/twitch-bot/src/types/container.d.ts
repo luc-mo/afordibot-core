@@ -20,6 +20,7 @@ import type { FirebaseRealtimeDbHandler } from '@/infrastructure/persistence/fir
 import type { AuthorizationRepository } from '@/infrastructure/persistence/mongo/authorization/repository'
 import type { UserRepository } from '@/infrastructure/persistence/mongo/user/repository'
 import type { CommandRepository } from '@/infrastructure/persistence/mongo/command/repository'
+import type { RealtimeCommandRepository } from '@/infrastructure/persistence/firebase/command/repository'
 
 import type { authorizationDocumentParser } from '@/infrastructure/persistence/mongo/authorization/document-parser'
 import type { userDocumentParser } from '@/infrastructure/persistence/mongo/user/document-parser'
@@ -63,6 +64,7 @@ export interface Container {
 	authorizationRepository: AuthorizationRepository
 	userRepository: UserRepository
 	commandRepository: CommandRepository
+	realtimeCommandRepository: RealtimeCommandRepository
 
 	// Document parsers
 	authorizationDocumentParser: typeof authorizationDocumentParser
