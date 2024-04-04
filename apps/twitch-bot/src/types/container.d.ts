@@ -7,6 +7,7 @@ import type { config } from '@/infrastructure/config'
 import type { IdGenerator, Cipher } from '@afordibot/core'
 import type { CommandPicker } from '@/domain/services/command-picker'
 import type { CommandParser } from '@/domain/services/command-parser'
+import type { CommandTimeoutHandler } from '@/domain/services/command-timeout-handler'
 
 import type { AxiosHttpClient } from '@/infrastructure/services/axios-http-client'
 import type { RestHelixClient } from '@/infrastructure/services/rest-helix-client'
@@ -48,6 +49,7 @@ export interface Container {
 	cipher: Cipher
 	commandPicker: CommandPicker
 	commandParser: CommandParser
+	commandTimeoutHandler: CommandTimeoutHandler
 
 	// Infrastructure services
 	httpClient: AxiosHttpClient

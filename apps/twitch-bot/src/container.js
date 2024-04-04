@@ -8,6 +8,7 @@ import { config } from './infrastructure/config'
 import { IdGenerator, Cipher } from '@afordibot/core'
 import { CommandPicker } from './domain/services/command-picker'
 import { CommandParser } from './domain/services/command-parser'
+import { CommandTimeoutHandler } from '@/domain/services/command-timeout-handler'
 
 import { AxiosHttpClient } from './infrastructure/services/axios-http-client'
 import { RestHelixClient } from '@/infrastructure/services/rest-helix-client'
@@ -54,6 +55,7 @@ container.register({
 	cipher: asClass(Cipher),
 	commandPicker: asClass(CommandPicker),
 	commandParser: asClass(CommandParser),
+	commandTimeoutHandler: asClass(CommandTimeoutHandler).singleton(),
 
 	// Infrastructure services
 	httpClient: asClass(AxiosHttpClient),
