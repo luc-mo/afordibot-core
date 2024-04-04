@@ -1,5 +1,5 @@
 import { getValue } from '@/shared/functions'
-import { User } from '@afordibot/core'
+import { User, AlreadyExistsUserError } from '@afordibot/core'
 import { JoinChannelCommand } from './join-channel-command'
 import { JoinChannelResponse } from './join-channel-response'
 
@@ -35,8 +35,7 @@ export class JoinChannel {
 
 	_assertUserExists(user) {
 		if (user) {
-			// TODO - Create custom error in core package
-			throw new Error('User already exists')
+			throw new AlreadyExistsUserError('User already exists')
 		}
 	}
 }

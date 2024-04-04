@@ -1,5 +1,5 @@
 import { getValue } from '@/shared/functions'
-import { User } from '@afordibot/core'
+import { User, NotFoundUserError } from '@afordibot/core'
 import { LeaveChannelCommand } from './leave-channel-command'
 
 export class LeaveChannel {
@@ -29,8 +29,7 @@ export class LeaveChannel {
 
 	_assertUserExists(user) {
 		if (!user) {
-			// TODO - Create custom error in core package
-			throw new Error('User does not exist')
+			throw new NotFoundUserError('User not found')
 		}
 	}
 }
