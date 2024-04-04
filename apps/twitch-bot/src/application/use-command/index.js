@@ -1,5 +1,9 @@
 import { getValue } from '@/shared/functions'
-import { NotFoundCommandError, TimeoutCommandError } from '@afordibot/core'
+import {
+	InsufficientPermissionsError,
+	NotFoundCommandError,
+	TimeoutCommandError,
+} from '@afordibot/core'
 import { UseCommandCommand } from './use-command-command'
 import { UseCommandResponse } from './use-command-response'
 
@@ -18,6 +22,7 @@ export class UseCommand {
 		const command = await this._commandRepository.findByHelixUserIdAndName({ helixUserId, name })
 		this._assertCommandExists(command)
 		this._assertCommandTimeout(command)
+		this._assertViewerPermissions(command, viewerPermissions)
 
 		const commandId = getValue(command.id)
 		const count = await this._realtimeCommandRepository.findCountByCommandId(commandId)
@@ -44,6 +49,16 @@ export class UseCommand {
 		const exists = this._commandTimeoutHandler.exists(getValue(command.id))
 		if (exists) {
 			throw new TimeoutCommandError('Command is in timeout')
+		}
+	}
+
+	_assertViewerPermissions(command, viewerPermissions) {
+		const permission = getValue(command.permission)
+		const hasPermission = viewerPermissions.hasPermission(permission)
+		if (!hasPermission) {
+			throw new InsufficientPermissionsError(
+				`Insufficient permissions to use this command, expected ${permission}`
+			)
 		}
 	}
 }
