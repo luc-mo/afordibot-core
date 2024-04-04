@@ -1,4 +1,5 @@
 import * as R from 'ramda'
+import { anyValue } from '@/shared/functions'
 import { InvalidViewerPermissionsError } from './errors/invalid-viewer-permissions-error'
 
 export class ViewerPermissions {
@@ -23,24 +24,31 @@ export class ViewerPermissions {
 		return 'everyone'
 	}
 
+	hasPermission(permission) {
+		const permissions = {
+			owner: this.isOwner(),
+			moderator: this.isModerator(),
+			vip: this.isVip(),
+			subscriber: this.isSubscriber(),
+			everyone: this.everyone,
+		}
+		return permissions[permission]
+	}
+
 	isOwner() {
 		return this.owner
 	}
 
 	isModerator() {
-		return this._checkPermission([this.owner, this.moderator])
+		return anyValue([this.owner, this.moderator])
 	}
 
 	isVip() {
-		return this._checkPermission([this.owner, this.moderator, this.vip])
+		return anyValue([this.owner, this.moderator, this.vip])
 	}
 
 	isSubscriber() {
-		return this._checkPermission([this.owner, this.moderator, this.vip, this.subscriber])
-	}
-
-	_checkPermission() {
-		return R.any(R.identity)
+		return anyValue([this.owner, this.moderator, this.vip, this.subscriber])
 	}
 
 	_assertPermission(permission, value) {
