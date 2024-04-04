@@ -27,7 +27,7 @@ export interface IPermission {
 }
 
 export interface ITimeout {
-	value: string
+	value: number
 }
 
 export interface ICommand {

@@ -188,7 +188,7 @@ interface Constructor {
 	messages: string[]
 	values: string[]
 	permission: string
-	timeout: string
+	timeout: number
 	enabled: boolean
 	createdAt: number
 	updatedAt: number

@@ -4,14 +4,14 @@ import { InvalidCommandError } from './errors/invalid-command-error'
 import type { ITimeout } from './types'
 
 export class Timeout implements ITimeout {
-	public readonly value: string
+	public readonly value: number
 
-	constructor(value: string) {
+	constructor(value: number) {
 		this._assertTimeout(value)
 		this.value = value
 	}
 
-	private _assertTimeout(value: string) {
+	private _assertTimeout(value: number) {
 		const validator = R.pipe(validate(Number.isInteger, between(0, 3600)), R.not)
 		if (validator(value)) {
 			throw new InvalidCommandError(
