@@ -18,9 +18,9 @@ export class LeaveChannel {
 		const user = new User({
 			id: getValue(exists.id),
 			helixId: getValue(exists.helixId),
-			username: getValue(exists.username),
-			displayName: getValue(exists.displayName),
-			imageUrl: getValue(exists.imageUrl),
+			username: exists.username,
+			displayName: exists.displayName,
+			imageUrl: exists.imageUrl,
 			enabled: false,
 		})
 
