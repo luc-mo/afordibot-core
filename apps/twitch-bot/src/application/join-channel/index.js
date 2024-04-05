@@ -34,7 +34,7 @@ export class JoinChannel {
 	}
 
 	_assertUserExists(user) {
-		if (user) {
+		if (user && user.enabled) {
 			throw new AlreadyExistsUserError('User already exists')
 		}
 	}
