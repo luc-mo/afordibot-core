@@ -3,6 +3,7 @@ import {
 	InsufficientPermissionsError,
 	NotFoundCommandError,
 	TimeoutCommandError,
+	NotFoundValidCommandMessageError,
 } from '@afordibot/core'
 import { UseCommandCommand } from './use-command-command'
 import { UseCommandResponse } from './use-command-response'
@@ -33,6 +34,7 @@ export class UseCommand {
 			receiver,
 			count: count + 1,
 		})
+		this._assertMessageExists(message)
 
 		await this._realtimeCommandRepository.incrementCountByCommandId(commandId)
 		this._commandTimeoutHandler.add(command)
@@ -59,6 +61,12 @@ export class UseCommand {
 			throw new InsufficientPermissionsError(
 				`Insufficient permissions to use this command, expected ${permission}`
 			)
+		}
+	}
+
+	_assertMessageExists(message) {
+		if (!message) {
+			throw new NotFoundValidCommandMessageError('Valid command message not found')
 		}
 	}
 }
