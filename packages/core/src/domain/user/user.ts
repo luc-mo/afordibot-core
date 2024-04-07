@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import { validate, between } from '@/shared/functions'
+import { getValue, validate, between } from '@/shared/functions'
 import { UUID } from '@/domain/uuid'
 import { HelixUserId } from '@/domain/helix-user-id'
 import { InvalidUserError } from './errors/invalid-user-error'
@@ -25,6 +25,17 @@ export class User implements IUser {
 		this._displayName = displayName
 		this._imageUrl = imageUrl
 		this._enabled = enabled
+	}
+
+	public toObject() {
+		return {
+			id: getValue(this._id),
+			helixId: getValue(this._helixId),
+			username: this._username,
+			displayName: this._displayName,
+			imageUrl: this._imageUrl,
+			enabled: this._enabled,
+		}
 	}
 
 	private _assertUsername(value: string) {
