@@ -14,3 +14,6 @@ export type * from './domain/services/id-generator'
 
 // Errors
 export type * from './domain/errors'
+
+// Events
+export type * from './domain/events/domain-event'
