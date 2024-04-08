@@ -18,6 +18,7 @@ import { userDocumentParser } from './infrastructure/persistence/mongo/user/docu
 import { commandDocumentParser } from './infrastructure/persistence/mongo/command/document-parser'
 
 import { JoinChannel } from './application/join-channel'
+import { LeaveChannel } from './application/leave-channel'
 
 const container = createContainer({
 	injectionMode: InjectionMode.PROXY,
@@ -54,6 +55,7 @@ container.register({
 
 	// Use cases
 	joinChannel: asClass(JoinChannel),
+	leaveChannel: asClass(LeaveChannel),
 })
 
 export { container }

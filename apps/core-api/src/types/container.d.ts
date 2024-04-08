@@ -17,6 +17,7 @@ import type { userDocumentParser } from '@/infrastructure/persistence/mongo/user
 import type { commandDocumentParser } from '@/infrastructure/persistence/mongo/command/document-parser'
 
 import type { JoinChannel } from '@/application/join-channel'
+import type { LeaveChannel } from '@/application/leave-channel'
 
 export interface Container {
 	// Libraries
@@ -49,4 +50,5 @@ export interface Container {
 
 	// Use cases
 	joinChannel: JoinChannel
+	leaveChannel: LeaveChannel
 }
