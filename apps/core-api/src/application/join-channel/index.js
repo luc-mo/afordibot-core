@@ -14,8 +14,8 @@ export class JoinChannel {
 		this._userRepository = userRepository
 	}
 
-	async execute({ helixId }) {
-		const helixUser = await this._restHelixClient.getUserById(helixId)
+	async execute({ helixId, helixToken }) {
+		const helixUser = await this._restHelixClient.getUserById(helixId, helixToken)
 		const exists = await this._userRepository.findByHelixId(helixUser.id)
 		this._assertUserExists(exists)
 
@@ -30,7 +30,7 @@ export class JoinChannel {
 		})
 
 		await this._userRepository.save(user)
-		return new JoinChannelResponse(user)
+		return new JoinChannelResponse(user.toObject())
 	}
 
 	_assertUserExists(user) {
