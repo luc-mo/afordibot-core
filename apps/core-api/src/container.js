@@ -5,6 +5,7 @@ import * as mongodb from 'mongodb'
 
 import { IdGenerator, Cipher } from '@afordibot/core'
 import { config } from './infrastructure/config'
+import { AMQPClient } from './infrastructure/amqp/amqp-client'
 
 import { AxiosHttpClient } from './infrastructure/services/axios-http-client'
 import { RestHelixClient } from './infrastructure/services/rest-helix-client/client'
@@ -32,6 +33,9 @@ container.register({
 
 	// Config
 	config: asValue(config),
+
+	// AMQP
+	amqpClient: asClass(AMQPClient).singleton(),
 
 	// Domain services
 	idGenerator: asClass(IdGenerator),

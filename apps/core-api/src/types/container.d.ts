@@ -4,6 +4,7 @@ import type * as mongodb from 'mongodb'
 
 import type { IdGenerator, Cipher } from '@afordibot/core'
 import type { config } from '@/infrastructure/config'
+import type { AMQPClient } from '@/infrastructure/amqp/amqp-client'
 
 import type { AxiosHttpClient } from '@/infrastructure/services/axios-http-client'
 import type { RestHelixClient } from '@/infrastructure/services/rest-helix-client/client'
@@ -27,6 +28,9 @@ export interface Container {
 
 	// Config
 	config: typeof config
+
+	// AMQP
+	amqpClient: AMQPClient
 
 	// Domain services
 	idGenerator: IdGenerator
