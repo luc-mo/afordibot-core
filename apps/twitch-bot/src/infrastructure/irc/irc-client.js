@@ -5,6 +5,7 @@ import { InvalidCommandError, AlreadyExistsCommandError } from '@afordibot/core'
 import { HealthCheckCommand } from '@/application/health-check'
 import { JoinChannelCommand } from '@/application/join-channel'
 import { LeaveChannelCommand } from '@/application/leave-channel'
+import { FindUserByIdCommand } from '@/application/find-user-by-id'
 import { CreateCommandCommand } from '@/application/create-command'
 import { UseCommandCommand } from '@/application/use-command'
 
@@ -15,6 +16,7 @@ export class IRCClient {
 	 */
 	constructor({
 		config,
+		amqpClient,
 		authProvider,
 		viewerPermissionsHandler,
 		commandPicker,
@@ -23,10 +25,12 @@ export class IRCClient {
 		findBotUsernames,
 		joinChannel,
 		leaveChannel,
+		findUserById,
 		createCommand,
 		useCommand,
 	}) {
 		this._config = config
+		this._amqpClient = amqpClient
 		this._authProvider = authProvider
 		this._viewerPermissionsHandler = viewerPermissionsHandler
 		this._commandPicker = commandPicker
@@ -36,6 +40,7 @@ export class IRCClient {
 		this._findBotUsernames = findBotUsernames
 		this._joinChannel = joinChannel
 		this._leaveChannel = leaveChannel
+		this._findUserById = findUserById
 		this._createCommand = createCommand
 		this._useCommand = useCommand
 	}
@@ -54,6 +59,7 @@ export class IRCClient {
 		this._client.onConnect(() => console.log('Connected to chat'))
 		this._client.onMessage(this._onMessage.bind(this))
 		this._client.connect()
+		this._onDomainEvent()
 	}
 
 	async _onMessage(channel, username, message, ctx) {
@@ -74,6 +80,7 @@ export class IRCClient {
 		}
 	}
 
+	// Chat commands
 	async _onHealthCheck(_, { channel, viewerPermissions }) {
 		const command = new HealthCheckCommand(viewerPermissions)
 		const response = this._healthCheck.execute(command)
@@ -124,5 +131,37 @@ export class IRCClient {
 		const command = new UseCommandCommand({ ...options, helixUserId, viewerPermissions })
 		const response = await this._useCommand.execute(command)
 		this._client.say(channel, response.message)
+	}
+
+	// Domain events
+	_onDomainEvent() {
+		// TODO add error handlign for domain events
+		this._onUserCreated()
+		this._onUserDisabled()
+	}
+
+	_onUserCreated() {
+		this._amqpClient.consume('user.user_created', async (message) => {
+			const content = JSON.parse(message.content.toString())
+			const user = content.payload.user
+			await this._client.join(user.username)
+			await this._client.say(
+				user.username,
+				`@${user.username}, ahora podrás encontrarme en tu canal afordiLove!`
+			)
+		})
+	}
+
+	_onUserDisabled() {
+		this._amqpClient.consume('user.user_disabled', async (message) => {
+			const content = JSON.parse(message.content.toString())
+			const command = new FindUserByIdCommand(content.payload.userId)
+			const response = await this._findUserById.execute(command)
+			await this._client.part(response.user.username)
+			await this._client.say(
+				response.user.username,
+				`@${response.user.username}, desde ahora no estaré en tu canal afordiSad`
+			)
+		})
 	}
 }

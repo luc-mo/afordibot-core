@@ -31,7 +31,7 @@ usersRouter.post('/leave', authTokenValidator, async (req, res) => {
 		const leaveChannel = container.resolve('leaveChannel')
 		await leaveChannel.execute(command)
 
-		res.status(200).send({ message: 'User left channel' })
+		res.status(200).send({ message: 'Bot left user channel' })
 	} catch (error) {
 		res.status(500).send({ message: 'Internal server error' })
 	}
