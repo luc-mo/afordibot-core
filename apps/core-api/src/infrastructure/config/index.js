@@ -5,6 +5,7 @@ export const config = {
 	env: process.env.NODE_ENV,
 	server: {
 		port: process.env.PORT ?? 3001,
+		amqpUrl: process.env.AMQP_URL,
 		cipherKey: process.env.CIPHER_KEY,
 	},
 	mongo: {

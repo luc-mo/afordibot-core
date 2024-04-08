@@ -4,6 +4,7 @@ dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
 export const config = {
 	env: process.env.NODE_ENV,
 	server: {
+		amqpUrl: process.env.AMQP_URL,
 		cipherKey: process.env.CIPHER_KEY,
 	},
 	mongo: {
