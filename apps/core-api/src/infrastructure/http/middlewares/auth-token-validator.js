@@ -30,6 +30,7 @@ export const authTokenValidator = async (req, res, next) => {
 		_assertTokenData(response)
 
 		req.authTokenData = response
+		req.authToken = token
 		next()
 	} catch (error) {
 		const validator = R.is(R.__, error)
