@@ -4,6 +4,7 @@ import { container } from '@/container'
 import { authTokenValidator } from './middlewares/auth-token-validator'
 
 import { JoinChannelCommand } from '@/application/join-channel'
+import { LeaveChannelCommand } from '@/application/leave-channel'
 
 const usersRouter = Router()
 
@@ -26,8 +27,9 @@ usersRouter.post('/leave', authTokenValidator, async (req, res) => {
 	try {
 		const { helixId } = req.authTokenData
 
+		const command = new LeaveChannelCommand(helixId)
 		const leaveChannel = container.resolve('leaveChannel')
-		await leaveChannel.execute({ helixId })
+		await leaveChannel.execute(command)
 
 		res.status(200).send({ message: 'User left channel' })
 	} catch (error) {
