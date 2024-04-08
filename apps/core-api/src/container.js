@@ -17,6 +17,8 @@ import { CommandRepository } from './infrastructure/persistence/mongo/command/re
 import { userDocumentParser } from './infrastructure/persistence/mongo/user/document-parser'
 import { commandDocumentParser } from './infrastructure/persistence/mongo/command/document-parser'
 
+import { JoinChannel } from './application/join-channel'
+
 const container = createContainer({
 	injectionMode: InjectionMode.PROXY,
 })
@@ -41,11 +43,17 @@ container.register({
 
 	// Persistence
 	dbHandler: asClass(MongoDbHandler).singleton(),
+
+	// Repositories
 	userRepository: asClass(UserRepository),
 	commandRepository: asClass(CommandRepository),
 
+	// Document parsers
 	userDocumentParser: asFunction(userDocumentParser),
 	commandDocumentParser: asFunction(commandDocumentParser),
+
+	// Use cases
+	joinChannel: asClass(JoinChannel),
 })
 
 export { container }

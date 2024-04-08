@@ -16,6 +16,8 @@ import type { CommandRepository } from '@/infrastructure/persistence/mongo/comma
 import type { userDocumentParser } from '@/infrastructure/persistence/mongo/user/document-parser'
 import type { commandDocumentParser } from '@/infrastructure/persistence/mongo/command/document-parser'
 
+import type { JoinChannel } from '@/application/join-channel'
+
 export interface Container {
 	// Libraries
 	crypto: typeof crypto
@@ -44,4 +46,7 @@ export interface Container {
 	// Document parsers
 	userDocumentParser: ReturnType<typeof userDocumentParser>
 	commandDocumentParser: ReturnType<typeof commandDocumentParser>
+
+	// Use cases
+	joinChannel: JoinChannel
 }
