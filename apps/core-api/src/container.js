@@ -6,6 +6,8 @@ import * as mongodb from 'mongodb'
 import { IdGenerator, Cipher } from '@afordibot/core'
 import { config } from './infrastructure/config'
 
+import { AxiosHttpClient } from './infrastructure/services/axios-http-client'
+
 import { MongoDbHandler } from './infrastructure/persistence/mongo/db-handler'
 import { UserRepository } from './infrastructure/persistence/mongo/user/repository'
 import { CommandRepository } from './infrastructure/persistence/mongo/command/repository'
@@ -29,6 +31,9 @@ container.register({
 	// Domain services
 	idGenerator: asClass(IdGenerator),
 	cipher: asClass(Cipher),
+
+	// Infrastructure services
+	httpClient: asClass(AxiosHttpClient),
 
 	// Persistence
 	dbHandler: asClass(MongoDbHandler).singleton(),
