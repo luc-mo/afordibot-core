@@ -9,5 +9,19 @@ export const restHelixRequestParser = () => {
 				scopes: response.scopes,
 			}
 		},
+		helixUser: (response) => {
+			return {
+				id: response.id,
+				username: response.login,
+				displayName: response.display_name,
+				type: response.type,
+				broadcasterType: response.broadcaster_type,
+				description: response.description,
+				profileImageUrl: response.profile_image_url,
+				offlineImageUrl: response.offline_image_url,
+				viewCount: response.view_count,
+				createdAt: response.created_at,
+			}
+		},
 	}
 }
