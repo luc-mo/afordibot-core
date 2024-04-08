@@ -33,6 +33,7 @@ import type { HealthCheck } from '@/application/health-check'
 import type { FindBotUsernames } from '@/application/find-bot-usernames'
 import type { JoinChannel } from './application/join-channel'
 import type { LeaveChannel } from './application/leave-channel'
+import type { FindUserById } from '@/application/find-user-by-id'
 import type { CreateCommand } from '@/application/create-command'
 import type { UseCommand } from '@/application/use-command'
 
@@ -83,6 +84,7 @@ export interface Container {
 	findBotUsernames: FindBotUsernames
 	joinChannel: JoinChannel
 	leaveChannel: LeaveChannel
+	findUserById: FindUserById
 	createCommand: CreateCommand
 	useCommand: UseCommand
 }

@@ -34,6 +34,7 @@ import { HealthCheck } from './application/health-check'
 import { FindBotUsernames } from './application/find-bot-usernames'
 import { JoinChannel } from './application/join-channel'
 import { LeaveChannel } from './application/leave-channel'
+import { FindUserById } from './application/find-user-by-id'
 import { CreateCommand } from './application/create-command'
 import { UseCommand } from './application/use-command'
 
@@ -90,6 +91,7 @@ container.register({
 	findBotUsernames: asClass(FindBotUsernames),
 	joinChannel: asClass(JoinChannel),
 	leaveChannel: asClass(LeaveChannel),
+	findUserById: asClass(FindUserById),
 	createCommand: asClass(CreateCommand),
 	useCommand: asClass(UseCommand),
 })
