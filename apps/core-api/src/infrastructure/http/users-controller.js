@@ -18,7 +18,19 @@ usersRouter.post('/join', authTokenValidator, async (req, res) => {
 
 		res.status(200).send(response)
 	} catch (error) {
-		console.error(error)
+		res.status(500).send({ message: 'Internal server error' })
+	}
+})
+
+usersRouter.post('/leave', authTokenValidator, async (req, res) => {
+	try {
+		const { helixId } = req.authTokenData
+
+		const leaveChannel = container.resolve('leaveChannel')
+		await leaveChannel.execute({ helixId })
+
+		res.status(200).send({ message: 'User left channel' })
+	} catch (error) {
 		res.status(500).send({ message: 'Internal server error' })
 	}
 })
