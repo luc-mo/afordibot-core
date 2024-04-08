@@ -11,8 +11,9 @@ import { CommandParser } from './domain/services/command-parser'
 import { CommandTimeoutHandler } from '@/domain/services/command-timeout-handler'
 
 import { AxiosHttpClient } from './infrastructure/services/axios-http-client'
-import { RestHelixClient } from '@/infrastructure/services/rest-helix-client'
+import { RestHelixClient } from './infrastructure/services/rest-helix-client'
 
+import { AMQPClient } from './infrastructure/amqp/amqp-client'
 import { AuthProvider } from './infrastructure/irc/auth-provider'
 import { IRCClient } from './infrastructure/irc/irc-client'
 import { viewerPermissionsHandler } from './infrastructure/irc/handlers/viewer-permissions-handler'
@@ -60,6 +61,9 @@ container.register({
 	// Infrastructure services
 	httpClient: asClass(AxiosHttpClient),
 	restHelixClient: asClass(RestHelixClient),
+
+	// AMQP
+	amqpClient: asClass(AMQPClient).singleton(),
 
 	// IRC
 	authProvider: asClass(AuthProvider).singleton(),

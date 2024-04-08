@@ -12,7 +12,9 @@ import type { CommandTimeoutHandler } from '@/domain/services/command-timeout-ha
 import type { AxiosHttpClient } from '@/infrastructure/services/axios-http-client'
 import type { RestHelixClient } from '@/infrastructure/services/rest-helix-client'
 
+import type { AMQPClient } from '@/infrastructure/amqp/amqp-client'
 import type { AuthProvider } from '@/infrastructure/irc/auth-provider'
+import type { IRCClient } from '@/infrastructure/irc/irc-client'
 import type { viewerPermissionsHandler } from '@/infrastructure/irc/handlers/viewer-permissions-handler'
 
 import type { MongoDbHandler } from '@/infrastructure/persistence/mongo/db-handler'
@@ -56,7 +58,9 @@ export interface Container {
 	restHelixClient: RestHelixClient
 
 	// Auth provider
+	amqpClient: AMQPClient
 	authProvider: AuthProvider
+	ircClient: IRCClient
 	viewerPermissionsHandler: ReturnType<typeof viewerPermissionsHandler>
 
 	// Persistence
