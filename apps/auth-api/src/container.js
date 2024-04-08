@@ -4,6 +4,7 @@ import axios from 'axios'
 import * as mongodb from 'mongodb'
 
 import { IdGenerator, Cipher } from '@afordibot/core'
+import { config } from './infrastructure/config'
 
 import { AxiosHttpClient } from './infrastructure/services/axios-http-client'
 import { RestHelixClient } from './infrastructure/services/rest-helix-client/client'
@@ -30,6 +31,9 @@ container.register({
 	// Domain services
 	idGenerator: asClass(IdGenerator),
 	cipher: asClass(Cipher),
+
+	// Config
+	config: asValue(config),
 
 	// Infrastructure services
 	httpClient: asClass(AxiosHttpClient),
