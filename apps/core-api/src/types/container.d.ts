@@ -32,7 +32,7 @@ export interface Container {
 	// Infrastructure services
 	httpClient: AxiosHttpClient
 	restHelixClient: RestHelixClient
-	restHelixRequestParser: typeof restHelixRequestParser
+	restHelixRequestParser: ReturnType<typeof restHelixRequestParser>
 
 	// Persistence
 	dbHandler: MongoDbHandler
@@ -42,6 +42,6 @@ export interface Container {
 	commandRepository: CommandRepository
 
 	// Document parsers
-	userDocumentParser: typeof userDocumentParser
-	commandDocumentParser: typeof commandDocumentParser
+	userDocumentParser: ReturnType<typeof userDocumentParser>
+	commandDocumentParser: ReturnType<typeof commandDocumentParser>
 }

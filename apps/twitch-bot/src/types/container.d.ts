@@ -57,7 +57,7 @@ export interface Container {
 
 	// Auth provider
 	authProvider: AuthProvider
-	viewerPermissionsHandler: typeof viewerPermissionsHandler
+	viewerPermissionsHandler: ReturnType<typeof viewerPermissionsHandler>
 
 	// Persistence
 	dbHandler: MongoDbHandler
@@ -70,9 +70,9 @@ export interface Container {
 	realtimeCommandRepository: RealtimeCommandRepository
 
 	// Document parsers
-	authorizationDocumentParser: typeof authorizationDocumentParser
-	userDocumentParser: typeof userDocumentParser
-	commandDocumentParser: typeof commandDocumentParser
+	authorizationDocumentParser: ReturnType<typeof authorizationDocumentParser>
+	userDocumentParser: ReturnType<typeof userDocumentParser>
+	commandDocumentParser: ReturnType<typeof commandDocumentParser>
 
 	// Use cases
 	healthCheck: HealthCheck
