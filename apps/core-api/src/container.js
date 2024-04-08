@@ -7,6 +7,8 @@ import { IdGenerator, Cipher } from '@afordibot/core'
 import { config } from './infrastructure/config'
 
 import { AxiosHttpClient } from './infrastructure/services/axios-http-client'
+import { RestHelixClient } from './infrastructure/services/rest-helix-client/client'
+import { restHelixRequestParser } from './infrastructure/services/rest-helix-client/request-parser'
 
 import { MongoDbHandler } from './infrastructure/persistence/mongo/db-handler'
 import { UserRepository } from './infrastructure/persistence/mongo/user/repository'
@@ -34,6 +36,8 @@ container.register({
 
 	// Infrastructure services
 	httpClient: asClass(AxiosHttpClient),
+	restHelixClient: asClass(RestHelixClient),
+	restHelixRequestParser: asFunction(restHelixRequestParser),
 
 	// Persistence
 	dbHandler: asClass(MongoDbHandler).singleton(),

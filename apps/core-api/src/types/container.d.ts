@@ -6,13 +6,15 @@ import type { IdGenerator, Cipher } from '@afordibot/core'
 import type { config } from '@/infrastructure/config'
 
 import type { AxiosHttpClient } from '@/infrastructure/services/axios-http-client'
+import type { RestHelixClient } from '@/infrastructure/services/rest-helix-client/client'
+import type { restHelixRequestParser } from '@/infrastructure/services/rest-helix-client/request-parser'
 
-import { MongoDbHandler } from '@/infrastructure/persistence/mongo/db-handler'
-import { UserRepository } from '@/infrastructure/persistence/mongo/user/repository'
-import { CommandRepository } from '@/infrastructure/persistence/mongo/command/repository'
+import type { MongoDbHandler } from '@/infrastructure/persistence/mongo/db-handler'
+import type { UserRepository } from '@/infrastructure/persistence/mongo/user/repository'
+import type { CommandRepository } from '@/infrastructure/persistence/mongo/command/repository'
 
-import { userDocumentParser } from '@/infrastructure/persistence/mongo/user/document-parser'
-import { commandDocumentParser } from '@/infrastructure/persistence/mongo/command/document-parser'
+import type { userDocumentParser } from '@/infrastructure/persistence/mongo/user/document-parser'
+import type { commandDocumentParser } from '@/infrastructure/persistence/mongo/command/document-parser'
 
 export interface Container {
 	// Libraries
@@ -29,6 +31,8 @@ export interface Container {
 
 	// Infrastructure services
 	httpClient: AxiosHttpClient
+	restHelixClient: RestHelixClient
+	restHelixRequestParser: typeof restHelixRequestParser
 
 	// Persistence
 	dbHandler: MongoDbHandler
