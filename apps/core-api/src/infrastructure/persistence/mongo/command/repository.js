@@ -1,6 +1,10 @@
 export class CommandRepository {
 	_COLLECTION = 'commands'
 
+	/**
+	 * @typedef { import('@/types/container').Container Container }
+	 * @param {Container} dependencies
+	 */
 	constructor({ mongodb, dbHandler, commandDocumentParser }) {
 		this._mongodb = mongodb
 		this._dbHandler = dbHandler
